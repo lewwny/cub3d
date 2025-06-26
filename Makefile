@@ -6,27 +6,23 @@
 #    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/06/26 17:29:22 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/06/26 19:32:59 by lenygarcia       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SILENT:
 
-# Compilation
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g
 
-# Sources et objets
-FILES		= main.c
+FILES		= main.c parsing.c key_hook.c load_img.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-# Projet
 NAME		= cub3d
 
-# OS detection
 UNAME_S		= $(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)  # macOS
@@ -37,12 +33,10 @@ else                       # Linux
 	MLX_DIR = ./mlx_linux
 endif
 
-# Libs
 LIBFT_PATH	= ./libft
 LIBFT		= $(LIBFT_PATH)/libft.a
 MLX_MAKE	= $(MAKE) -C $(MLX_DIR)
 
-# Couleurs
 RESET		= \033[0m
 GREEN		= \033[0;32m
 BLUE		= \033[0;34m
@@ -50,7 +44,6 @@ YELLOW		= \033[1;33m
 CYAN		= \033[0;36m
 RED			= \033[0;31m
 
-# Règles
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -62,7 +55,6 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
 	@printf "$(GREEN)✔ Build complete!$(RESET)\n"
 
-# Création des objets dans .obj
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@printf "$(CYAN)Compiling $<...$(RESET)\n"
