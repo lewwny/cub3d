@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:35:09 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/10 12:03:21 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:14:48 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 
 # define BUFFER_SIZE 1024
 
-typedef struct s_list
+typedef struct s_gb
 {
-	int				content;
-	struct s_list	*next;
-}	t_list;
+	void			*content;
+	int				index;
+	struct s_gb		*next;
+}	t_gb;
 
 long	ft_atoi(const char *str);
 int		ft_isalnum(int c);
@@ -36,7 +37,7 @@ int		ft_isdigit(int c);
 int		ft_isspace(char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_isprint(int c);
-int		ft_lstsize(t_list *lst);
+int		ft_lstsize(t_gb *lst);
 int		ft_putstri(int fd, char const *s);
 int		ft_putchari(int fd, char c);
 int		ft_putnbri(int fd, int n);
@@ -52,13 +53,17 @@ void	ft_putendl_fd(char const *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char const *s, int fd);
 void	ft_striteri(char *s, void (*f)(size_t, char *));
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst);
-void	ft_lstclear(t_list **lst);
+void	ft_lstadd_front(t_gb **lst, t_gb *new);
+void	ft_lstadd_back(t_gb **lst, t_gb *new);
+void	ft_lstdelone(t_gb *lst);
+void	ft_lstclear(t_gb **lst);
 void	ft_bzero(void *s, size_t n);
+void	free_all(t_gb **garbage);
+void	_free(void *ptr, t_gb **garbage);
+void	malloc_error(t_gb **garbage);
 
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*_malloc(size_t size, t_gb **garbage);
 
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s1);
@@ -78,7 +83,7 @@ char	**ft_split(char const *s, char c);
 
 size_t	ft_strlen(const char *s);
 
-t_list	*ft_lstnew(int content);
-t_list	*ft_lstlast(t_list *lst);
+t_gb	*ft_lstnew(void *content);
+t_gb	*ft_lstlast(t_gb *lst);
 
 #endif

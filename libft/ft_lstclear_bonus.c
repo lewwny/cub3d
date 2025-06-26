@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 21:58:07 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/02 15:51:03 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:53:55 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst)
+void	ft_lstclear(t_gb **lst)
 {
-	t_list	*tmp;
+	t_gb	*tmp;
 
+	if (!lst)
+		return ;
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free(*lst);
+		ft_lstdelone(*lst);
 		*lst = tmp;
 	}
-	*lst = NULL;
 }

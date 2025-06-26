@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 17:28:14 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/26 18:17:30 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(void)
 {
-	ft_putstr_fd("Hello, Cub3D!\n", 1);
-	return (0);
+	t_game	game;
+
+	ft_bzero(&game, sizeof(t_game));
 }

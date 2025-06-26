@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <marvin@42.fr>                  +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 21:44:46 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/03/10 22:10:32 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/26 17:51:34 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_gb **lst, t_gb *new)
 {
-	t_list	*last;
+	t_gb	*last;
 
 	if (!lst || !new)
 		return ;
