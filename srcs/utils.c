@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 14:41:34 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 15:56:22 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,41 @@ void	print_map(char **map)
 	i = 0;
 	while (map[i])
 	{
-		printf("%s", map[i]);
+		printf("%s\n", map[i]);
 		i++;
 	}
+}
+
+void	destroy_game_failure(t_game *game, const char *message)
+{
+	if (game->mlx_ptr && game->win_ptr)
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	if (game->mlx_ptr)
+		free(game->mlx_ptr);
+	if (game->menu)
+		mlx_destroy_image(game->mlx_ptr, game->menu);
+	if (game->menu2)
+		mlx_destroy_image(game->mlx_ptr, game->menu2);
+	if (game->menu3)
+		mlx_destroy_image(game->mlx_ptr, game->menu3);
+	if (game->tmp)
+		free_split(game->tmp);
+	ft_dprintf(2, "Error: %s\n", message);
+	free_all(&game->garbage);
+	exit(EXIT_FAILURE);
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

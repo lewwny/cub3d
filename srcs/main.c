@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 14:41:51 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 15:56:05 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(int argc, char **argv)
 
 	init_game(&game, argc, argv);
 	load_img(&game);
-	print_map(game.map);
 	mlx_key_hook(game.win_ptr, key_hook, &game);
 	mlx_hook(game.win_ptr, 6, 1L << 6, on_mouse_move, &game);
 	mlx_hook(game.win_ptr, 4, 1L << 2, on_mouse_click, &game);

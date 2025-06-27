@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:10 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 14:40:57 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 15:38:32 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	fill_tmp(int *i, char **map, char **tmp, int *count)
 		tmp[*i] = map[*i];
 		(*i)++;
 	}
+	tmp[*i] = NULL;
 }
 
 static char	**read_file(int fd, t_game *game)
@@ -50,6 +51,23 @@ static char	**read_file(int fd, t_game *game)
 	return (map);
 }
 
+static void	truncate_newline(char **map)
+{
+	int	i;
+	int	len;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if (len > 0 && map[i][len - 1] == '\n')
+			map[i][len - 1] = '\0';
+		i++;
+	}
+}
+
 void	extract_map(char *filename, t_game *game)
 {
 	int	fd;
@@ -61,4 +79,5 @@ void	extract_map(char *filename, t_game *game)
 		exit(EXIT_FAILURE);
 	}
 	game->map = read_file(fd, game);
+	truncate_newline(game->map);
 }

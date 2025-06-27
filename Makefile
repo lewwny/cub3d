@@ -6,7 +6,7 @@
 #    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/06/27 14:39:27 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/06/27 15:50:53 by lenygarcia       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g
 
 FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
-			utils.c
+			utils.c parse_texture.c parse_color.c parse_map.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

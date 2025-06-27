@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 14:39:12 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 15:50:59 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@
 
 # endif
 
+typedef struct s_parse
+{
+	int		no;
+	char	*no_path;
+	int		so;
+	char	*so_path;
+	int		we;
+	char	*we_path;
+	int		ea;
+	char	*ea_path;
+	int		f;
+	char	*f_color;
+	int		c;
+	char	*c_color;
+}	t_parse;
+
 typedef struct s_game
 {
 	void	*mlx_ptr;
@@ -54,7 +70,9 @@ typedef struct s_game
 	int		height;
 	int		menu_mode;
 	char	**map;
+	char	**tmp;
 	t_gb	*garbage;
+	t_parse	parse;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -62,7 +80,20 @@ void	destroy_game(t_game *game);
 void	load_img(t_game *game);
 void	extract_map(char *filename, t_game *game);
 void	print_map(char **map);
+void	init_parse(t_parse *parse);
+void	destroy_game_failure(t_game *game, const char *message);
+void	free_split(char **split);
+void	parse_map(t_game *game, t_parse *parse);
 
+//TEXTURE COLOR PARSING
+void	no_parse(char *filename, t_parse *parse, t_game *game);
+void	so_parse(char *filename, t_parse *parse, t_game *game);
+void	we_parse(char *filename, t_parse *parse, t_game *game);
+void	ea_parse(char *filename, t_parse *parse, t_game *game);
+void	f_parse(char *color, t_parse *parse, t_game *game);
+void	c_parse(char *color, t_parse *parse, t_game *game);
+
+//MLX HOOKS
 int		key_hook(int keycode, t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
