@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 20:23:44 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 14:39:12 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "../mlx_mac/mlx.h"
 # include <stdio.h>
+# include <fcntl.h>
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -52,13 +53,15 @@ typedef struct s_game
 	int		width;
 	int		height;
 	int		menu_mode;
-	char	*map;
+	char	**map;
 	t_gb	*garbage;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
 void	destroy_game(t_game *game);
 void	load_img(t_game *game);
+void	extract_map(char *filename, t_game *game);
+void	print_map(char **map);
 
 int		key_hook(int keycode, t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);

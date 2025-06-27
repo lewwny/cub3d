@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:20:39 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 19:00:02 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/27 14:37:00 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	parsing(int argc, char **argv, t_game *game)
 	(void) game;
 	args_count(argc);
 	file_format(argv[1]);
+	extract_map(argv[1], game);
 }
