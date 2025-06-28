@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:35:09 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 18:14:48 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/28 19:33:32 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		ft_putnbrhexmin(int fd, int n);
 int		ft_putnbrhexmaj(int fd, int n);
 int		ft_putptr(int fd, void	*ptr);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strarrlen(char **arr);
 
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char const *s, int fd);
