@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:36:01 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/28 16:08:20 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/28 16:29:46 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static void	parse_map_line(t_game *game, t_parse *parse, int *i)
 		tmp = NULL;
 		(*i)++;
 	}
+	while (game->map[*i] && game->map[*i][0] == '\0')
+		(*i)++;
 }
 
 void	parse_map(t_game *game, t_parse *parse)
@@ -96,4 +98,6 @@ void	parse_map(t_game *game, t_parse *parse)
 	if (!parse->no || !parse->so || !parse->we || !parse->ea
 		|| !parse->f || !parse->c)
 		destroy_game_failure(game, "Incomplete parsing.");
+	map_to_finalmap(game, i);
+	parse_finalmap(game);
 }

@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 15:50:59 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/06/28 19:14:17 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_game
 	int		menu_mode;
 	char	**map;
 	char	**tmp;
+	char	**final_map;
 	t_gb	*garbage;
 	t_parse	parse;
 }	t_game;
@@ -84,6 +85,8 @@ void	init_parse(t_parse *parse);
 void	destroy_game_failure(t_game *game, const char *message);
 void	free_split(char **split);
 void	parse_map(t_game *game, t_parse *parse);
+void	map_to_finalmap(t_game *game, int i);
+void	parse_finalmap(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
