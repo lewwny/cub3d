@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 15:56:22 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 17:08:11 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	destroy_game_failure(t_game *game, const char *message)
 		mlx_destroy_image(game->mlx_ptr, game->menu3);
 	if (game->tmp)
 		free_split(game->tmp);
-	ft_dprintf(2, "Error: %s\n", message);
+	ft_dprintf(2, "Error\n%s\n", message);
 	free_all(&game->garbage);
 	exit(EXIT_FAILURE);
 }
