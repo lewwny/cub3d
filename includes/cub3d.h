@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/28 19:14:17 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 18:15:45 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,32 @@ typedef struct s_parse
 	char	*c_color;
 }	t_parse;
 
+typedef struct s_player
+{
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+}	t_player;
+
 typedef struct s_game
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*menu;
-	void	*menu2;
-	void	*menu3;
-	int		width;
-	int		height;
-	int		menu_mode;
-	char	**map;
-	char	**tmp;
-	char	**final_map;
-	t_gb	*garbage;
-	t_parse	parse;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*menu;
+	void		*menu2;
+	void		*menu3;
+	int			width;
+	int			height;
+	int			menu_mode;
+	char		**map;
+	char		**tmp;
+	char		**final_map;
+	t_gb		*garbage;
+	t_parse		parse;
+	t_player	player;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -87,6 +98,8 @@ void	free_split(char **split);
 void	parse_map(t_game *game, t_parse *parse);
 void	map_to_finalmap(t_game *game, int i);
 void	parse_finalmap(t_game *game);
+void	free_oldmap(char **map, t_gb **garbage);
+void	move_player(t_game *game, int keycode);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
@@ -95,6 +108,7 @@ void	we_parse(char *filename, t_parse *parse, t_game *game);
 void	ea_parse(char *filename, t_parse *parse, t_game *game);
 void	f_parse(char *color, t_parse *parse, t_game *game);
 void	c_parse(char *color, t_parse *parse, t_game *game);
+void	init_player(t_game *game);
 
 //MLX HOOKS
 int		key_hook(int keycode, t_game *game);

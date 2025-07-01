@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 17:08:11 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 17:53:11 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,20 @@ void	free_split(char **split)
 		i++;
 	}
 	free(split);
+}
+
+void	free_oldmap(char **map, t_gb **garbage)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (map[i])
+	{
+		_free(map[i], garbage);
+		i++;
+	}
+	_free(map, garbage);
+	map = NULL;
 }

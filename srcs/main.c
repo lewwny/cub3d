@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 15:56:05 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 17:49:26 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_game(t_game *game, int argc, char **argv)
 {
 	ft_bzero(game, sizeof(t_game));
 	parsing(argc, argv, game);
+	init_player(game);
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 	{

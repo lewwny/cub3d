@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 20:26:52 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 18:07:05 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
-	{
 		destroy_game(game);
-	}
+	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S
+		|| keycode == KEY_D)
+		move_player(game, keycode);
 	return (0);
 }
