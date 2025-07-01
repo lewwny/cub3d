@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 16:30:24 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/28 19:44:13 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/01 17:05:01 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,19 @@ static void	verif_player(char **map, t_game *game)
 		destroy_game_failure(game, "Multiple players found in the map.");
 }
 
+static int	is_invalid_wall_position(char **map, int i, size_t j)
+{
+	if ((i == 0 || !map[i - 1] || map[i - 1][j] == '\0'
+		|| map[i - 1][j] == ' ') ||
+		(i == ft_strarrlen(map) - 1 || !map[i + 1]
+		|| map[i + 1][j] == '\0' || map[i + 1][j] == ' ') ||
+		(j == 0 || map[i][j - 1] == '\0' || map[i][j - 1] == ' ') ||
+		(j == ft_strlen(map[i]) - 1 || map[i][j + 1] == '\0'
+		|| map[i][j + 1] == ' '))
+		return (1);
+	return (0);
+}
+
 static void	verif_wall(char **map, t_game *game)
 {
 	int		i;
@@ -71,18 +84,12 @@ static void	verif_wall(char **map, t_game *game)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == '0' || map[i][j] == 'N'
-				|| map[i][j] == 'S' || map[i][j] == 'E'
-				|| map[i][j] == 'W')
+			if (map[i][j] == '0' || map[i][j] == 'N' ||
+				map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				if ((i == 0 || !map[i - 1] || map[i - 1][j] == '\0'
-					|| map[i - 1][j] == ' ') ||
-					(i == ft_strarrlen(map) - 1 || !map[i + 1] ||
-					map[i + 1][j] == '\0' || map[i + 1][j] == ' ') ||
-					(j == 0 || map[i][j - 1] == '\0' || map[i][j - 1] == ' ') ||
-					(j == ft_strlen(map[i]) - 1 || map[i][j + 1] == '\0' ||
-					map[i][j + 1] == ' '))
-					destroy_game_failure(game, "Map is not surrounded by walls.");
+				if (is_invalid_wall_position(map, i, j))
+					destroy_game_failure(game,
+						"Map is not surrounded by walls.");
 			}
 			j++;
 		}
