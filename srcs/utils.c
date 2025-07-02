@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 17:53:11 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 12:17:47 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	destroy_game_failure(t_game *game, const char *message)
 		mlx_destroy_image(game->mlx_ptr, game->menu3);
 	if (game->tmp)
 		free_split(game->tmp);
+	if (game->texture.no)
+		mlx_destroy_image(game->mlx_ptr, game->texture.no);
+	if (game->texture.so)
+		mlx_destroy_image(game->mlx_ptr, game->texture.so);
+	if (game->texture.we)
+		mlx_destroy_image(game->mlx_ptr, game->texture.we);
+	if (game->texture.ea)
+		mlx_destroy_image(game->mlx_ptr, game->texture.ea);
 	ft_dprintf(2, "Error\n%s\n", message);
 	free_all(&game->garbage);
 	exit(EXIT_FAILURE);

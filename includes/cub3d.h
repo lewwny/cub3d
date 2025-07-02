@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 18:15:45 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 12:25:27 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
-# include "../mlx_mac/mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
 
@@ -30,6 +29,8 @@
 #  define KEY_ESC 53
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
+#  define LINUX 0
+#  include "../mlx_mac/mlx.h"
 
 # elif __linux__
 
@@ -40,6 +41,8 @@
 #  define KEY_ESC 65307
 #  define KEY_LEFT 65361
 #  define KEY_RIGHT 65363
+#  define LINUX 1
+#  include "../mlx_linux/mlx.h"
 
 # endif
 
@@ -69,6 +72,14 @@ typedef struct s_player
 	double	planey;
 }	t_player;
 
+typedef struct s_texture
+{
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
+}	t_texture;
+
 typedef struct s_game
 {
 	void		*mlx_ptr;
@@ -85,6 +96,7 @@ typedef struct s_game
 	t_gb		*garbage;
 	t_parse		parse;
 	t_player	player;
+	t_texture	texture;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -100,6 +112,7 @@ void	map_to_finalmap(t_game *game, int i);
 void	parse_finalmap(t_game *game);
 void	free_oldmap(char **map, t_gb **garbage);
 void	move_player(t_game *game, int keycode);
+void	extract_texture(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 18:07:05 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 11:46:20 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		destroy_game(game);
-	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S
-		|| keycode == KEY_D)
+	if ((keycode == KEY_W || keycode == KEY_A || keycode == KEY_S
+			|| keycode == KEY_D) && game->menu_mode == 4)
 		move_player(game, keycode);
 	return (0);
 }

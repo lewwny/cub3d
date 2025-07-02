@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 20:25:54 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 12:16:31 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	load_img(t_game *game)
 		destroy_game(game);
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->menu, 0, 0);
+	extract_texture(game);
 }

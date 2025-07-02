@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:00:45 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 15:34:19 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 11:54:15 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	no_parse(char *filename, t_parse *parse, t_game *game)
 	else
 	{
 		parse->no = 1;
-		parse->no_path = ft_strdup(filename);
-		if (!parse->no_path)
-			malloc_error(&game->garbage);
+		parse->no_path = ft_strdup(filename, &game->garbage);
 	}
 }
 
@@ -36,9 +34,7 @@ void	so_parse(char *filename, t_parse *parse, t_game *game)
 	else
 	{
 		parse->so = 1;
-		parse->so_path = ft_strdup(filename);
-		if (!parse->so_path)
-			malloc_error(&game->garbage);
+		parse->so_path = ft_strdup(filename, &game->garbage);
 	}
 }
 
@@ -51,9 +47,7 @@ void	we_parse(char *filename, t_parse *parse, t_game *game)
 	else
 	{
 		parse->we = 1;
-		parse->we_path = ft_strdup(filename);
-		if (!parse->we_path)
-			malloc_error(&game->garbage);
+		parse->we_path = ft_strdup(filename, &game->garbage);
 	}
 }
 
@@ -66,8 +60,6 @@ void	ea_parse(char *filename, t_parse *parse, t_game *game)
 	else
 	{
 		parse->ea = 1;
-		parse->ea_path = ft_strdup(filename);
-		if (!parse->ea_path)
-			malloc_error(&game->garbage);
+		parse->ea_path = ft_strdup(filename, &game->garbage);
 	}
 }

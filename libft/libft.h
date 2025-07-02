@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:35:09 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/28 19:33:32 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 11:51:51 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*_malloc(size_t size, t_gb **garbage);
 
 char	*ft_itoa(int n);
-char	*ft_strdup(const char *s1);
+char	*ft_strdup(const char *s1, t_gb **garbage);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);

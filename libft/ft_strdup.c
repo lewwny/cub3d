@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:11:06 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/26 18:14:26 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 11:51:46 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1, t_gb **garbage)
 {
 	int		size;
 	char	*dup;
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s1)
 	size = 0;
 	while (s1[size])
 		size++;
-	dup = (char *) malloc(sizeof(char) * (size + 1));
+	dup = (char *) _malloc(sizeof(char) * (size + 1), garbage);
 	if (!dup)
 		return (NULL);
 	size = 0;
