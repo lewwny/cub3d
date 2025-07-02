@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:42:38 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/02 12:12:07 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:41:18 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ static void	extract_we(t_game *game)
 
 void	extract_texture(t_game *game)
 {
-	printf("Extracting textures...\n");
 	extract_no(game);
-	printf("NO texture extracted successfully.\n");
 	extract_so(game);
 	extract_ea(game);
 	extract_we(game);
-	printf("Textures extracted successfully.\n");
 }
