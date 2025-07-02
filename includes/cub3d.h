@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 17:33:51 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/02 17:56:59 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,32 @@ typedef struct s_color
 	t_floor		floor;
 }	t_color;
 
+typedef struct s_ray
+{
+	double	camera_x;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	double	wallx;
+	int		texture_x;
+	int		texture_y;
+	double	step;
+	double	texpos;
+	double	perpwalldist;
+}	t_ray;
+
 typedef struct s_player
 {
 	double	posx;
@@ -90,6 +116,7 @@ typedef struct s_player
 	double	diry;
 	double	planex;
 	double	planey;
+	t_ray	ray;
 }	t_player;
 
 typedef struct s_texture
