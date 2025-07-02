@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 12:23:48 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/02 17:35:52 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx_ptr, game->texture.so);
 	mlx_destroy_image(game->mlx_ptr, game->texture.we);
 	mlx_destroy_image(game->mlx_ptr, game->texture.ea);
-	if (LINUX)
-		mlx_destroy_display(game->mlx_ptr);
+	free_linux(game);
 	free(game->mlx_ptr);
 	free_all(&game->garbage);
 	exit(0);

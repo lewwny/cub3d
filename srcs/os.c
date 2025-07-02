@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   os.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 12:27:51 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 17:15:05 by lenygarcia       ###   ########.fr       */
+/*   Created: 2025/07/02 17:10:35 by lenygarcia        #+#    #+#             */
+/*   Updated: 2025/07/02 17:10:43 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isspace(char c)
+#include "../includes/cub3d.h"
+
+#ifdef __linux__
+
+void	free_linux(t_game *game)
 {
-	if ((c == 32) || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
+	mlx_destroy_display(game->mlx_ptr);
+}
+#endif
+
+#ifdef __APPLE__
+
+void	free_linux(t_game *game)
+{
+	(void)game;
 }
 
-long	ft_atoi(char *str)
-{
-	int		res;
-	long	neg;
-
-	neg = 1;
-	res = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			neg = neg * -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		res = res * 10 + (*str - 48);
-		str++;
-	}
-	return (res * neg);
-}
+#endif

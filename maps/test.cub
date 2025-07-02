@@ -3,7 +3,7 @@ SO ./img/yellow_planks.xpm
 WE ./img/red_planks.xpm
 EA ./img/green_planks.xpm
 F 220,100,0
-C 225,30,0
+C 50,30,55
          111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001

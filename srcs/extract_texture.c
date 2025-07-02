@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:42:38 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/02 13:41:18 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/02 17:28:34 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void	extract_texture(t_game *game)
 	extract_so(game);
 	extract_ea(game);
 	extract_we(game);
+	convert_texture(game);
 }
