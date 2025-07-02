@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 12:25:27 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:16:08 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,26 @@ typedef struct s_parse
 	int		c;
 	char	*c_color;
 }	t_parse;
+
+typedef struct s_ceiling
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_ceiling;
+
+typedef struct s_floor
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_floor;
+
+typedef struct s_color
+{
+	t_ceiling	ceiling;
+	t_floor		floor;
+} t_color;
 
 typedef struct s_player
 {
