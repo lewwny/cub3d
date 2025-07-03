@@ -58,6 +58,7 @@ void	_free(void *ptr, t_gb **garbage)
 		current = current->next;
 	}
 	free(ptr);
+	ptr = NULL;
 }
 
 void	free_all(t_gb **garbage)
