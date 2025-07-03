@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 12:17:47 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:37:27 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,16 @@ void	print_map(char **map)
 	}
 }
 
-void	destroy_game_failure(t_game *game, const char *message)
+void	destroy_game_images(t_game *game)
 {
 	if (game->mlx_ptr && game->win_ptr)
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	if (game->mlx_ptr)
-		free(game->mlx_ptr);
 	if (game->menu)
 		mlx_destroy_image(game->mlx_ptr, game->menu);
 	if (game->menu2)
 		mlx_destroy_image(game->mlx_ptr, game->menu2);
 	if (game->menu3)
 		mlx_destroy_image(game->mlx_ptr, game->menu3);
-	if (game->tmp)
-		free_split(game->tmp);
 	if (game->texture.no)
 		mlx_destroy_image(game->mlx_ptr, game->texture.no);
 	if (game->texture.so)
@@ -51,6 +47,18 @@ void	destroy_game_failure(t_game *game, const char *message)
 		mlx_destroy_image(game->mlx_ptr, game->texture.we);
 	if (game->texture.ea)
 		mlx_destroy_image(game->mlx_ptr, game->texture.ea);
+}
+
+void	destroy_game_failure(t_game *game, const char *message)
+{
+	destroy_game_images(game);
+	if (game->tmp)
+		free_split(game->tmp);
+	if (game->map)
+		free_oldmap(game->map, &game->garbage);
+	free_linux(game);
+	if (game->mlx_ptr)
+		free(game->mlx_ptr);
 	ft_dprintf(2, "Error\n%s\n", message);
 	free_all(&game->garbage);
 	exit(EXIT_FAILURE);

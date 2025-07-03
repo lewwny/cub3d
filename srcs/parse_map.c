@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 16:30:24 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 17:05:01 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/03 09:32:10 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	parse_char(char **map, t_game *game)
 	int	i;
 	int	j;
 
+	if (!map || !game)
+		return ;
 	i = 0;
 	while (map[i])
 	{
@@ -99,6 +101,8 @@ static void	verif_wall(char **map, t_game *game)
 
 void	parse_finalmap(t_game *game)
 {
+	if (!game || !game->final_map)
+		destroy_game_failure(game, "Final map is NULL.");
 	parse_char(game->final_map, game);
 	verif_player(game->final_map, game);
 	verif_wall(game->final_map, game);

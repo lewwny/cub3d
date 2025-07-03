@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:20:39 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 12:14:05 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:19:01 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	parsing(int argc, char **argv, t_game *game)
 	extract_map(argv[1], game);
 	parse_map(game, &game->parse);
 	free_oldmap(game->map, &game->garbage);
+	game->map = NULL;
 }

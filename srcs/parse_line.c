@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:36:01 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/28 16:29:46 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/03 09:13:52 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static int	parse_line(char **line, t_parse *parse, t_game *game)
 
 static void	parse_map_line(t_game *game, t_parse *parse, int *i)
 {
-	char	**tmp;
-
 	while (game->map[*i])
 	{
 		if (game->map[*i][0] == '\0')
@@ -72,17 +70,17 @@ static void	parse_map_line(t_game *game, t_parse *parse, int *i)
 			(*i)++;
 			continue ;
 		}
-		tmp = ft_split(game->map[*i], ' ');
-		if (!tmp)
+		game->tmp = ft_split(game->map[*i], ' ');
+		if (!game->tmp)
 			destroy_game_failure(game, "Memory allocation error.");
-		if (!parse_line(tmp, parse, game))
+		if (!parse_line(game->tmp, parse, game))
 		{
-			free_split(tmp);
-			tmp = NULL;
+			free_split(game->tmp);
+			game->tmp = NULL;
 			break ;
 		}
-		free_split(tmp);
-		tmp = NULL;
+		free_split(game->tmp);
+		game->tmp = NULL;
 		(*i)++;
 	}
 	while (game->map[*i] && game->map[*i][0] == '\0')

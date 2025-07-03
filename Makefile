@@ -6,14 +6,14 @@
 #    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/03 07:48:07 by lengarci         ###   ########.fr        #
+#    Updated: 2025/07/03 09:33:44 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SILENT:
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address
 
 FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			utils.c parse_texture.c parse_color.c parse_line.c \

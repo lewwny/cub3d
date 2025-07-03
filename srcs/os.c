@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   os.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:10:35 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 17:10:43 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/03 09:35:53 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	free_linux(t_game *game)
 {
-	mlx_destroy_display(game->mlx_ptr);
+	if (game->mlx_ptr)
+		mlx_destroy_display(game->mlx_ptr);
 }
 #endif
 
