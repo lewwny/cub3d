@@ -3,14 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:18:08 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:59:17 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	rotate_player_by_mouse(t_game *game, int delta_x)
+{
+	double	rot_speed;
+	double	old_dirx;
+	double	old_planex;
+	double	angle;
+
+	rot_speed = 0.0005;
+	if (delta_x != 0)
+	{
+		angle = delta_x * rot_speed;
+		old_dirx = game->player.dirx;
+		old_planex = game->player.planex;
+		game->player.dirx = game->player.dirx * cos(angle)
+			- game->player.diry * sin(angle);
+		game->player.diry = old_dirx * sin(angle)
+			+ game->player.diry * cos(angle);
+		game->player.planex = game->player.planex * cos(angle)
+			- game->player.planey * sin(angle);
+		game->player.planey = old_planex * sin(angle)
+			+ game->player.planey * cos(angle);
+		raycasting(game);
+	}
+}
+
+static void	mouse_control(t_game *game, int x, int y)
+{
+	static int	previous_x = WIDTH / 2;
+	int			delta_x;
+
+	(void)y;
+	delta_x = x - previous_x;
+	previous_x = x;
+	rotate_player_by_mouse(game, delta_x);
+	if (x <= 10 || x >= WIDTH - 10)
+	{
+		mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
+		previous_x = WIDTH / 2;
+	}
+}
 
 int	on_mouse_move(int x, int y, t_game *game)
 {
@@ -18,7 +59,10 @@ int	on_mouse_move(int x, int y, t_game *game)
 
 	new_menu_mode = 0;
 	if (game->menu_mode == 4)
+	{
+		mouse_control(game, x, y);
 		return (0);
+	}
 	if (x >= 404 && x <= 957 && y >= 144 && y <= 324)
 		new_menu_mode = 1;
 	else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
@@ -52,6 +96,7 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
 		raycasting(game);
+		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
 	}
 	return (0);
 }
