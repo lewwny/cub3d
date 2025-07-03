@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:49:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/01 17:56:04 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/03 10:01:52 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ static void	init_player_pos(t_game *game)
 static void	init_player_direction(t_game *game)
 {
 	if (game->final_map[(int)game->player.posy][(int)game->player.posx]
-		== 'N')
+		== 'W')
 	{
 		game->player.dirx = -1;
 		game->player.diry = 0;
 	}
 	else if (game->final_map[(int)game->player.posy][(int)game->player.posx]
-		== 'S')
+		== 'E')
 	{
 		game->player.dirx = 1;
 		game->player.diry = 0;
 	}
 	else if (game->final_map[(int)game->player.posy][(int)game->player.posx]
-		== 'E')
+		== 'S')
 	{
 		game->player.dirx = 0;
 		game->player.diry = 1;
 	}
 	else if (game->final_map[(int)game->player.posy][(int)game->player.posx]
-		== 'W')
+		== 'N')
 	{
 		game->player.dirx = 0;
 		game->player.diry = -1;

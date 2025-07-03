@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 07:47:51 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:58:13 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	main(int argc, char **argv)
 
 	init_game(&game, argc, argv);
 	load_img(&game);
+	raycasting(&game);
 	mlx_key_hook(game.win_ptr, key_hook, &game);
 	mlx_hook(game.win_ptr, 6, 1L << 6, on_mouse_move, &game);
 	mlx_hook(game.win_ptr, 4, 1L << 2, on_mouse_click, &game);

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 07:47:58 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:21:45 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,12 @@ typedef struct s_color
 typedef struct s_ray
 {
 	double	camera_x;
-	double	raydirx;
-	double	raydiry;
+	double	rayx;
+	double	rayy;
+	double	stepsize;
+	double	distance;
 	int		mapx;
 	int		mapy;
-	double	sidedistx;
-	double	sidedisty;
-	double	deltadistx;
-	double	deltadisty;
-	int		stepx;
-	int		stepy;
-	int		hit;
-	int		side;
-	int		lineheight;
-	int		drawstart;
-	int		drawend;
-	double	wallx;
-	int		texture_x;
-	int		texture_y;
-	double	step;
-	double	texpos;
-	double	perpwalldist;
 }	t_ray;
 
 typedef struct s_player
@@ -167,6 +152,7 @@ void	free_oldmap(char **map, t_gb **garbage);
 void	move_player(t_game *game, int keycode);
 void	extract_texture(t_game *game);
 void	convert_texture(t_game *game);
+void	raycasting(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

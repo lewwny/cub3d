@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:04:31 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/02 11:41:11 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:25:25 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void	move_player(t_game *game, int keycode)
 		move_player_left(game, move_speed);
 	else if (keycode == KEY_D)
 		move_player_right(game, move_speed);
+	raycasting(game);
 }
