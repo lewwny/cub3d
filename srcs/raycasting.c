@@ -3,21 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/03 12:04:33 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:16:35 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	wall_height(t_game *game)
+{
+	t_ray	*ray;
+
+	ray = &game->player.ray;
+	ray->wall.height = (int)(HEIGHT / ray->distance);
+	ray->wall.start = -ray->wall.height / 2 + HEIGHT / 2;
+	if (ray->wall.start < 0)
+		ray->wall.start = 0;
+	ray->wall.end = ray->wall.height / 2 + HEIGHT / 2;
+	if (ray->wall.end >= HEIGHT)
+		ray->wall.end = HEIGHT - 1;
+}
 
 void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
 {
 	(void)column;
 	game->player.ray.rayx = game->player.posx;
 	game->player.ray.rayy = game->player.posy;
-	game->player.ray.stepsize = 0.1;
+	game->player.ray.stepsize = 0.001;
 	game->player.ray.distance = 0.0;
 	while (1)
 	{
@@ -26,14 +40,31 @@ void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
 		game->player.ray.distance += game->player.ray.stepsize;
 		game->player.ray.mapx = (int)game->player.ray.rayx;
 		game->player.ray.mapy = (int)game->player.ray.rayy;
+		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width ||
+			game->player.ray.mapy < 0 || game->player.ray.mapy >= game->height)
+			break ;
 		if (game->final_map[game->player.ray.mapy][game->player.ray.mapx]
 				== '1')
-		{
-			printf("Hit a wall at (%d, %d) after distance %.2f\n",
-				game->player.ray.mapx, game->player.ray.mapy,
-				game->player.ray.distance);
 			break ;
-		}
+	}
+}
+
+static void	draw_wall(t_game *game, int x)
+{
+	t_ray	*ray;
+	int		y;
+
+	ray = &game->player.ray;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		if (y < ray->wall.start)
+			game->buf[y * WIDTH + x] = 0xADD8E6;
+		else if (y >= ray->wall.start && y < ray->wall.end)
+			game->buf[y * WIDTH + x] = 0x654321;
+		else
+			game->buf[y * WIDTH + x] = 0x008000;
+		y++;
 	}
 }
 
@@ -44,6 +75,7 @@ void	raycasting(t_game *game)
 	double	raydirx;
 	double	raydiry;
 	double	ray_angle;
+	double	cos_angle;
 
 	x = 0;
 	while (x < WIDTH)
@@ -54,6 +86,11 @@ void	raycasting(t_game *game)
 		raydirx = cos(ray_angle);
 		raydiry = sin(ray_angle);
 		cast_ray(game, raydirx, raydiry, x);
+		cos_angle = (raydirx * game->player.dirx) + (raydiry * game->player.diry);
+		game->player.ray.distance *= cos_angle;
+		wall_height(game);
+		draw_wall(game, x);
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->buftmp, 0, 0);
 }

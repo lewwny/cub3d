@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 09:58:13 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:16:12 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init_game(t_game *game, int argc, char **argv)
 {
 	ft_bzero(game, sizeof(t_game));
+	ft_bzero(&game->player.ray, sizeof(t_ray));
 	parsing(argc, argv, game);
 	init_player(game);
 	game->mlx_ptr = mlx_init();
@@ -62,8 +63,7 @@ int	main(int argc, char **argv)
 
 	init_game(&game, argc, argv);
 	load_img(&game);
-	raycasting(&game);
-	mlx_key_hook(game.win_ptr, key_hook, &game);
+	mlx_hook(game.win_ptr, 2, 1L << 0, key_hook, &game);
 	mlx_hook(game.win_ptr, 6, 1L << 6, on_mouse_move, &game);
 	mlx_hook(game.win_ptr, 4, 1L << 2, on_mouse_click, &game);
 	mlx_hook(game.win_ptr, 17, 0, close_game, &game);

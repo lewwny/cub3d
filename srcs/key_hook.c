@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 10:19:12 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:18:08 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 	{
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
+		raycasting(game);
 	}
 	return (0);
 }

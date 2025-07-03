@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 10:21:45 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:15:59 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define DDA_INF 1e30
 
 # ifdef __APPLE__ 
 
@@ -83,6 +85,13 @@ typedef struct s_color
 	t_floor		floor;
 }	t_color;
 
+typedef struct s_wall
+{
+	int	height;
+	int	start;
+	int	end;
+}	t_wall;
+
 typedef struct s_ray
 {
 	double	camera_x;
@@ -90,9 +99,24 @@ typedef struct s_ray
 	double	rayy;
 	double	stepsize;
 	double	distance;
+	double	wall_x;
 	int		mapx;
 	int		mapy;
+	t_wall	wall;
 }	t_ray;
+
+typedef struct s_dda
+{
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	stepx;
+	double	stepy;
+	bool	hit;
+	int		side;
+	int		sidehit;
+}	t_dda;
 
 typedef struct s_player
 {
@@ -124,6 +148,8 @@ typedef struct s_game
 	void		*menu;
 	void		*menu2;
 	void		*menu3;
+	void		*buftmp;
+	int			*buf;
 	int			width;
 	int			height;
 	int			menu_mode;
@@ -135,6 +161,7 @@ typedef struct s_game
 	t_player	player;
 	t_texture	texture;
 	t_color		color;
+	// t_dda		dda;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
