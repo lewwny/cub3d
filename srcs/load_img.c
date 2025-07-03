@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:17:18 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:28:03 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	load_img(t_game *game)
 	game->buftmp = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	if (!game->buftmp)
 		destroy_game_failure(game, "Failed to create new image");
-	game->buf = (int *)mlx_get_data_addr(game->buftmp, &game->width, &tmp, &tmp);
+	game->buf = (int *)mlx_get_data_addr(game->buftmp,
+			&game->width, &tmp, &tmp);
 }

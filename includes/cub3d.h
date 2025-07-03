@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:15:59 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:34:13 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,6 @@ typedef struct s_ray
 	t_wall	wall;
 }	t_ray;
 
-typedef struct s_dda
-{
-	double	sidedistx;
-	double	sidedisty;
-	double	deltadistx;
-	double	deltadisty;
-	double	stepx;
-	double	stepy;
-	bool	hit;
-	int		side;
-	int		sidehit;
-}	t_dda;
-
 typedef struct s_player
 {
 	double	posx;
@@ -141,6 +128,17 @@ typedef struct s_texture
 	unsigned int	*ea_data;
 }	t_texture;
 
+typedef struct s_keys
+{
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		left;
+	int		right;
+	int		esc;
+}	t_keys;
+
 typedef struct s_game
 {
 	void		*mlx_ptr;
@@ -161,7 +159,7 @@ typedef struct s_game
 	t_player	player;
 	t_texture	texture;
 	t_color		color;
-	// t_dda		dda;
+	t_keys		keys;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -189,10 +187,13 @@ void	ea_parse(char *filename, t_parse *parse, t_game *game);
 void	f_parse(char *color, t_parse *parse, t_game *game);
 void	c_parse(char *color, t_parse *parse, t_game *game);
 void	init_player(t_game *game);
+void	init_keys(t_keys *keys);
 void	free_linux(t_game *game);
 
 //MLX HOOKS
-int		key_hook(int keycode, t_game *game);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+int		game_loop(t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
 

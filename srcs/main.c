@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:16:12 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:27:52 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_game(t_game *game, int argc, char **argv)
 {
 	ft_bzero(game, sizeof(t_game));
 	ft_bzero(&game->player.ray, sizeof(t_ray));
+	init_keys(&game->keys);
 	parsing(argc, argv, game);
 	init_player(game);
 	game->mlx_ptr = mlx_init();
@@ -63,10 +64,12 @@ int	main(int argc, char **argv)
 
 	init_game(&game, argc, argv);
 	load_img(&game);
-	mlx_hook(game.win_ptr, 2, 1L << 0, key_hook, &game);
+	mlx_hook(game.win_ptr, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win_ptr, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win_ptr, 6, 1L << 6, on_mouse_move, &game);
 	mlx_hook(game.win_ptr, 4, 1L << 2, on_mouse_click, &game);
 	mlx_hook(game.win_ptr, 17, 0, close_game, &game);
+	mlx_loop_hook(game.mlx_ptr, game_loop, &game);
 	mlx_loop(game.mlx_ptr);
 	destroy_game(&game);
 }

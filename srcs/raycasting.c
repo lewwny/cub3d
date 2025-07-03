@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/03 19:16:35 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:31:31 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
 		game->player.ray.distance += game->player.ray.stepsize;
 		game->player.ray.mapx = (int)game->player.ray.rayx;
 		game->player.ray.mapy = (int)game->player.ray.rayy;
-		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width ||
-			game->player.ray.mapy < 0 || game->player.ray.mapy >= game->height)
+		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width
+			|| game->player.ray.mapy < 0
+			|| game->player.ray.mapy >= game->height)
 			break ;
 		if (game->final_map[game->player.ray.mapy][game->player.ray.mapx]
 				== '1')
@@ -75,19 +76,18 @@ void	raycasting(t_game *game)
 	double	raydirx;
 	double	raydiry;
 	double	ray_angle;
-	double	cos_angle;
 
 	x = 0;
 	while (x < WIDTH)
 	{
 		camera_x = (2 * x / (double)WIDTH) - 1;
-		ray_angle = atan2(game->player.diry,
-				game->player.dirx) + camera_x * (0.66 / 2.0);
+		ray_angle = atan2(game->player.diry, game->player.dirx)
+			+ camera_x * (0.66 / 2.0);
 		raydirx = cos(ray_angle);
 		raydiry = sin(ray_angle);
 		cast_ray(game, raydirx, raydiry, x);
-		cos_angle = (raydirx * game->player.dirx) + (raydiry * game->player.diry);
-		game->player.ray.distance *= cos_angle;
+		game->player.ray.distance *= (raydirx * game->player.dirx)
+			+ (raydiry * game->player.diry);
 		wall_height(game);
 		draw_wall(game, x);
 		x++;
