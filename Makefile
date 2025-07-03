@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
+#    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/02 17:28:23 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/07/03 07:48:07 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
