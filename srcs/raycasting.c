@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 10:58:39 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:38:45 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	cast_ray(t_game *game, double raydirx, double raydiry)
 	t_ray	*ray;
 
 	ray = &game->player.ray;
-	ray->rayx = game->player.posx;
-	ray->rayy = game->player.posy;
-	ray->mapx = (int)ray->rayx;
-	ray->mapy = (int)ray->rayy;
+	ray->ray_x = game->player.posx;
+	ray->ray_y = game->player.posy;
+	ray->mapx = (int)ray->ray_x;
+	ray->mapy = (int)ray->ray_y;
 	init_sides(game, raydirx, raydiry);
+	game->player.ray.hit = false;
 	perform_dda(game);
 }
 

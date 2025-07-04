@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 09:25:18 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/04 10:51:27 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:38:34 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,40 @@
 static void	init_delta_dist(t_ray *ray, double raydirx, double raydiry)
 {
 	if (raydirx == 0)
-		ray->deltaDistX = 1e30;
+		ray->delta_dist_x = 1e30;
 	else
-		ray->deltaDistX = fabs(1 / raydirx);
+		ray->delta_dist_x = fabs(1 / raydirx);
 	if (raydiry == 0)
-		ray->deltaDistY = 1e30;
+		ray->delta_dist_y = 1e30;
 	else
-		ray->deltaDistY = fabs(1 / raydiry);
+		ray->delta_dist_y = fabs(1 / raydiry);
 }
 
-static void	init_side_x(double posX, double rayX, t_ray *ray)
+static void	init_side_x(double posX, double ray_x, t_ray *ray)
 {
-	if (rayX < 0) // ray is moving left
+	if (ray_x < 0)
 	{
-		ray->stepSizeX = -1;
-		ray->sideDistX = (posX - ray->mapx) * ray->deltaDistX;
+		ray->step_size_x = -1;
+		ray->side_dist_x = (posX - ray->mapx) * ray->delta_dist_x;
 	}
-	else // ray is moving right
+	else
 	{
-		ray->stepSizeX = 1;
-		ray->sideDistX = (ray->mapx + 1.0 - posX) * ray->deltaDistX;
+		ray->step_size_x = 1;
+		ray->side_dist_x = (ray->mapx + 1.0 - posX) * ray->delta_dist_x;
 	}
 }
 
-static void	init_side_y(double posY, double rayY, t_ray *ray)
+static void	init_side_y(double posY, double ray_y, t_ray *ray)
 {
-	if (rayY < 0) // ray is moving up
+	if (ray_y < 0)
 	{
-		ray->stepSizeY = -1;
-		ray->sideDistY = (posY - ray->mapy) * ray->deltaDistY;
+		ray->step_size_y = -1;
+		ray->side_dist_y = (posY - ray->mapy) * ray->delta_dist_y;
 	}
-	else // ray is moving down
+	else
 	{
-		ray->stepSizeY = 1;
-		ray->sideDistY = (ray->mapy + 1.0 - posY) * ray->deltaDistY;
+		ray->step_size_y = 1;
+		ray->side_dist_y = (ray->mapy + 1.0 - posY) * ray->delta_dist_y;
 	}
 }
 
@@ -66,28 +66,28 @@ void	init_sides(t_game *game, double raydirx, double raydiry)
 
 void	perform_dda(t_game *game)
 {
-	game->player.ray.hit = false;
 	while (!game->player.ray.hit)
 	{
-		if (game->player.ray.sideDistX < game->player.ray.sideDistY)
+		if (game->player.ray.side_dist_x < game->player.ray.side_dist_y)
 		{
 			game->player.ray.side = NO_SO;
-			game->player.ray.mapx += game->player.ray.stepSizeX;
-			game->player.ray.distance = game->player.ray.sideDistX;
-			game->player.ray.sideDistX += game->player.ray.deltaDistX;
+			game->player.ray.mapx += game->player.ray.step_size_x;
+			game->player.ray.distance = game->player.ray.side_dist_x;
+			game->player.ray.side_dist_x += game->player.ray.delta_dist_x;
 		}
 		else
 		{
 			game->player.ray.side = WE_EA;
-			game->player.ray.mapy += game->player.ray.stepSizeY;
-			game->player.ray.distance = game->player.ray.sideDistY;
-			game->player.ray.sideDistY += game->player.ray.deltaDistY;
+			game->player.ray.mapy += game->player.ray.step_size_y;
+			game->player.ray.distance = game->player.ray.side_dist_y;
+			game->player.ray.side_dist_y += game->player.ray.delta_dist_y;
 		}
 		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width
 			|| game->player.ray.mapy < 0
 			|| game->player.ray.mapy >= game->height)
 			game->player.ray.hit = true;
-		if (game->final_map[game->player.ray.mapy][game->player.ray.mapx] == '1')
+		if (game->final_map[game->player.ray.mapy]
+			[game->player.ray.mapx] == '1')
 			game->player.ray.hit = true;
 	}
 	set_sides(game);

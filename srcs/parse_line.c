@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:36:01 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 09:13:52 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:49:06 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@ void	parse_map(t_game *game, t_parse *parse)
 	if (!parse->no || !parse->so || !parse->we || !parse->ea
 		|| !parse->f || !parse->c)
 		destroy_game_failure(game, "Incomplete parsing.");
+	game->texture.text_ptr[0] = game->texture.no_data;
+	game->texture.text_ptr[1] = game->texture.so_data;
+	game->texture.text_ptr[2] = game->texture.we_data;
+	game->texture.text_ptr[3] = game->texture.ea_data;
 	map_to_finalmap(game, i);
 	parse_finalmap(game);
 }

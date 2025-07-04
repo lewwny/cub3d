@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 10:59:38 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:49:39 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,34 @@ typedef struct s_color
 
 typedef struct s_wall
 {
-	int	height;
-	int	start;
-	int	end;
-	int	side;
+	int				height;
+	int				start;
+	int				end;
+	int				side;
+	double			wall_x;
+	double			step;
+	double			tex_pos;
+	int				tex_x;
+	int				tex_y;
+	unsigned int	*data;
 }	t_wall;
 
 typedef struct s_ray
 {
 	double	camera_x;
-	double	rayx;
-	double	rayy;
+	double	ray_x;
+	double	ray_y;
 	double	stepsize;
-	double	stepSizeX;
-	double	stepSizeY;
-	double	deltaDistX;
-	double	deltaDistY;
+	double	step_size_x;
+	double	step_size_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	double	distance;
 	double	wall_x;
 	int		mapx;
 	int		mapy;
-	double	sideDistX;
-	double	sideDistY;
+	double	side_dist_x;
+	double	side_dist_y;
 	int		side;
 	bool	hit;
 	t_wall	wall;
@@ -142,6 +148,7 @@ typedef struct s_texture
 	unsigned int	*so_data;
 	unsigned int	*we_data;
 	unsigned int	*ea_data;
+	unsigned int	*text_ptr[4];
 }	t_texture;
 
 typedef struct s_keys
