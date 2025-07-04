@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/03 19:32:51 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:52:01 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static void	handle_rotation(t_game *game)
 int	game_loop(t_game *game)
 {
 	if (game->keys.esc)
-		destroy_game(game);
+	{
+		pause_menu(game);
+		game->keys.esc = 0;
+	}
 	handle_movement(game);
 	handle_rotation(game);
 	if (game->menu_mode == 4)

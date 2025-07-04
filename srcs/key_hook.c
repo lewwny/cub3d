@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 11:27:39 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:21:45 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	turn_player(t_game *game, int direction)
 
 int	key_hook(int keycode, t_game *game)
 {
-	if (keycode == KEY_ESC)
-		destroy_game(game);
 	if ((keycode == KEY_W || keycode == KEY_A || keycode == KEY_S
 			|| keycode == KEY_D) && game->menu_mode == 4)
 		move_player(game, keycode);

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:34:13 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:02:02 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,12 @@ typedef struct s_keys
 	int		esc;
 }	t_keys;
 
+typedef struct s_menu
+{
+	void		*resume2;
+	void		*quit2;
+}	t_menu;
+
 typedef struct s_game
 {
 	void		*mlx_ptr;
@@ -147,6 +153,9 @@ typedef struct s_game
 	void		*menu2;
 	void		*menu3;
 	void		*buftmp;
+	void		*pause_menu;
+	void		*resume;
+	void		*quit;
 	int			*buf;
 	int			width;
 	int			height;
@@ -160,6 +169,7 @@ typedef struct s_game
 	t_texture	texture;
 	t_color		color;
 	t_keys		keys;
+	t_menu		menuimg;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -178,6 +188,8 @@ void	move_player(t_game *game, int keycode);
 void	extract_texture(t_game *game);
 void	convert_texture(t_game *game);
 void	raycasting(t_game *game);
+void	pause_menu(t_game *game);
+void	update_pause_menu(t_game *game, int new_menu_mode);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

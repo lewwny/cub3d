@@ -6,13 +6,13 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:28:03 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:01:17 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	load_img(t_game *game)
+static void	load_menu_images(t_game *game)
 {
 	int	tmp;
 
@@ -29,10 +29,45 @@ void	load_img(t_game *game)
 	if (!game->menu3)
 		destroy_game_failure(game, "Error: Failed to load main menu3 image.");
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->menu, 0, 0);
-	extract_texture(game);
+}
+
+static void	load_buffer_images(t_game *game)
+{
+	int	tmp;
+
 	game->buftmp = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	if (!game->buftmp)
 		destroy_game_failure(game, "Failed to create new image");
 	game->buf = (int *)mlx_get_data_addr(game->buftmp,
 			&game->width, &tmp, &tmp);
+}
+
+static void	load_menu_button_images(t_game *game)
+{
+	int	tmp;
+
+	game->quit = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/quit.xpm", &tmp, &tmp);
+	if (!game->quit)
+		destroy_game_failure(game, "Error: Failed to load quit image.");
+	game->resume = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/resume.xpm", &tmp, &tmp);
+	if (!game->resume)
+		destroy_game_failure(game, "Error: Failed to load resume image.");
+	game->menuimg.quit2 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/quit2.xpm", &tmp, &tmp);
+	if (!game->menuimg.quit2)
+		destroy_game_failure(game, "Error: Failed to load quit2 image.");
+	game->menuimg.resume2 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/resume2.xpm", &tmp, &tmp);
+	if (!game->menuimg.resume2)
+		destroy_game_failure(game, "Error: Failed to load resume2 image.");
+}
+
+void	load_img(t_game *game)
+{
+	load_menu_images(game);
+	extract_texture(game);
+	load_buffer_images(game);
+	load_menu_button_images(game);
 }
