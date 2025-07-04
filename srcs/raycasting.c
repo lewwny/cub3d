@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/03 19:31:31 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:58:39 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,17 @@ static void	wall_height(t_game *game)
 		ray->wall.end = HEIGHT - 1;
 }
 
-void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
+void	cast_ray(t_game *game, double raydirx, double raydiry)
 {
-	(void)column;
-	game->player.ray.rayx = game->player.posx;
-	game->player.ray.rayy = game->player.posy;
-	game->player.ray.stepsize = 0.001;
-	game->player.ray.distance = 0.0;
-	while (1)
-	{
-		game->player.ray.rayx += raydirx * game->player.ray.stepsize;
-		game->player.ray.rayy += raydiry * game->player.ray.stepsize;
-		game->player.ray.distance += game->player.ray.stepsize;
-		game->player.ray.mapx = (int)game->player.ray.rayx;
-		game->player.ray.mapy = (int)game->player.ray.rayy;
-		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width
-			|| game->player.ray.mapy < 0
-			|| game->player.ray.mapy >= game->height)
-			break ;
-		if (game->final_map[game->player.ray.mapy][game->player.ray.mapx]
-				== '1')
-			break ;
-	}
+	t_ray	*ray;
+
+	ray = &game->player.ray;
+	ray->rayx = game->player.posx;
+	ray->rayy = game->player.posy;
+	ray->mapx = (int)ray->rayx;
+	ray->mapy = (int)ray->rayy;
+	init_sides(game, raydirx, raydiry);
+	perform_dda(game);
 }
 
 static void	draw_wall(t_game *game, int x)
@@ -62,7 +51,7 @@ static void	draw_wall(t_game *game, int x)
 		if (y < ray->wall.start)
 			game->buf[y * WIDTH + x] = 0xADD8E6;
 		else if (y >= ray->wall.start && y < ray->wall.end)
-			game->buf[y * WIDTH + x] = 0x654321;
+			color_sides(game, x, y);
 		else
 			game->buf[y * WIDTH + x] = 0x008000;
 		y++;
@@ -85,7 +74,7 @@ void	raycasting(t_game *game)
 			+ camera_x * (0.66 / 2.0);
 		raydirx = cos(ray_angle);
 		raydiry = sin(ray_angle);
-		cast_ray(game, raydirx, raydiry, x);
+		cast_ray(game, raydirx, raydiry);
 		game->player.ray.distance *= (raydirx * game->player.dirx)
 			+ (raydiry * game->player.diry);
 		wall_height(game);

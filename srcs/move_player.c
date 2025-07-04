@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:04:31 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:27:52 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:39:14 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	move_player(t_game *game, int keycode)
 {
 	double	move_speed;
 
-	move_speed = 0.05;
+	move_speed = 0.015;
 	if (keycode == KEY_W)
 		move_player_forward(game, move_speed);
 	else if (keycode == KEY_S)

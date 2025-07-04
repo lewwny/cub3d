@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:34:13 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:59:38 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define DDA_INF 1e30
+
+# define NO_SO 0
+# define WE_EA 1
+
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
 
 # ifdef __APPLE__ 
 
@@ -90,6 +97,7 @@ typedef struct s_wall
 	int	height;
 	int	start;
 	int	end;
+	int	side;
 }	t_wall;
 
 typedef struct s_ray
@@ -98,10 +106,18 @@ typedef struct s_ray
 	double	rayx;
 	double	rayy;
 	double	stepsize;
+	double	stepSizeX;
+	double	stepSizeY;
+	double	deltaDistX;
+	double	deltaDistY;
 	double	distance;
 	double	wall_x;
 	int		mapx;
 	int		mapy;
+	double	sideDistX;
+	double	sideDistY;
+	int		side;
+	bool	hit;
 	t_wall	wall;
 }	t_ray;
 
@@ -196,5 +212,11 @@ int		key_release(int keycode, t_game *game);
 int		game_loop(t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
+
+//INIT FUNCTIONS
+void	init_sides(t_game *game, double raydirx, double raydiry);
+void	perform_dda(t_game *game);
+void	set_sides(t_game *game);
+void	color_sides(t_game *game, int x, int y);
 
 #endif
