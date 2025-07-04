@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 15:01:17 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:14:42 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 static void	load_menu_images(t_game *game)
 {
-	int	tmp;
+	int	tmp_width;
+	int	tmp_height;
 
 	game->menu = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/main_menu.xpm", &tmp, &tmp);
-	if (!game->menu)
+			"img/main_menu.xpm", &tmp_width, &tmp_height);
+	if (!game->menu || tmp_width != 1280 || tmp_height != 720)
 		destroy_game_failure(game, "Error: Failed to load main menu image.");
 	game->menu2 = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/main_menu2.xpm", &tmp, &tmp);
-	if (!game->menu2)
+			"img/main_menu2.xpm", &tmp_width, &tmp_height);
+	if (!game->menu2 || tmp_width != 1280 || tmp_height != 720)
 		destroy_game_failure(game, "Error: Failed to load main menu2 image.");
 	game->menu3 = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/main_menu3.xpm", &tmp, &tmp);
-	if (!game->menu3)
+			"img/main_menu3.xpm", &tmp_width, &tmp_height);
+	if (!game->menu3 || tmp_width != 1280 || tmp_height != 720)
 		destroy_game_failure(game, "Error: Failed to load main menu3 image.");
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->menu, 0, 0);
 }
@@ -44,23 +45,24 @@ static void	load_buffer_images(t_game *game)
 
 static void	load_menu_button_images(t_game *game)
 {
-	int	tmp;
+	int	tmp_width;
+	int	tmp_height;
 
 	game->quit = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/quit.xpm", &tmp, &tmp);
-	if (!game->quit)
+			"img/quit.xpm", &tmp_width, &tmp_height);
+	if (!game->quit || tmp_width != 210 || tmp_height != 70)
 		destroy_game_failure(game, "Error: Failed to load quit image.");
 	game->resume = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/resume.xpm", &tmp, &tmp);
-	if (!game->resume)
+			"img/resume.xpm", &tmp_width, &tmp_height);
+	if (!game->resume || tmp_width != 210 || tmp_height != 70)
 		destroy_game_failure(game, "Error: Failed to load resume image.");
 	game->menuimg.quit2 = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/quit2.xpm", &tmp, &tmp);
-	if (!game->menuimg.quit2)
+			"img/quit2.xpm", &tmp_width, &tmp_height);
+	if (!game->menuimg.quit2 || tmp_width != 210 || tmp_height != 70)
 		destroy_game_failure(game, "Error: Failed to load quit2 image.");
 	game->menuimg.resume2 = mlx_xpm_file_to_image(game->mlx_ptr,
-			"img/resume2.xpm", &tmp, &tmp);
-	if (!game->menuimg.resume2)
+			"img/resume2.xpm", &tmp_width, &tmp_height);
+	if (!game->menuimg.resume2 || tmp_width != 210 || tmp_height != 70)
 		destroy_game_failure(game, "Error: Failed to load resume2 image.");
 }
 
