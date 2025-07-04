@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 09:37:27 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:48:57 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	destroy_game_images(t_game *game)
 		mlx_destroy_image(game->mlx_ptr, game->texture.we);
 	if (game->texture.ea)
 		mlx_destroy_image(game->mlx_ptr, game->texture.ea);
+	if (game->buftmp)
+		mlx_destroy_image(game->mlx_ptr, game->buftmp);
 }
 
 void	destroy_game_failure(t_game *game, const char *message)

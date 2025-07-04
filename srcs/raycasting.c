@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/03 19:31:31 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:21:04 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
 	(void)column;
 	game->player.ray.rayx = game->player.posx;
 	game->player.ray.rayy = game->player.posy;
-	game->player.ray.stepsize = 0.001;
+	game->player.ray.stepsize = 0.005;
 	game->player.ray.distance = 0.0;
 	while (1)
 	{
