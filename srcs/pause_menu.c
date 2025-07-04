@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pause_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:42:11 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 17:28:56 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:47:45 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	pause_menu(t_game *game)
 	if (game->menu_mode >= 5)
 	{
 		game->menu_mode = 4;
-		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
+		mouse_hide(game);
 		raycasting(game);
 		return ;
 	}
 	else if (game->menu_mode == 4)
 	{
 		game->menu_mode = 5;
-		mlx_mouse_show(game->mlx_ptr, game->win_ptr);
+		mouse_show(game);
 		darken_image(game, 3);
 		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 			game->resume, 540, 264);

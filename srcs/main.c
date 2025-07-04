@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 15:32:05 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:47:33 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	init_game(t_game *game, int argc, char **argv)
 
 void	destroy_game(t_game *game)
 {
-	mlx_mouse_show(game->mlx_ptr, game->win_ptr);
+	mouse_show(game);
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	mlx_destroy_image(game->mlx_ptr, game->menu);
 	mlx_destroy_image(game->mlx_ptr, game->menu2);

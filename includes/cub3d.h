@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 17:18:00 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:50:11 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,9 @@ void	raycasting(t_game *game);
 void	pause_menu(t_game *game);
 void	update_pause_menu(t_game *game, int new_menu_mode);
 void	quit_game(t_game *game);
+void	mouse_show(t_game *game);
+void	mouse_hide(t_game *game);
+void	mouse_move(t_game *game, int x, int y);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

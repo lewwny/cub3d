@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   os.c                                               :+:      :+:    :+:   */
+/*   os_mouse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 17:10:35 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 20:53:31 by lenygarcia       ###   ########.fr       */
+/*   Created: 2025/07/04 20:52:28 by lenygarcia        #+#    #+#             */
+/*   Updated: 2025/07/04 20:53:22 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-#ifdef __linux__
+#ifdef __APPLE__
 
-void	free_linux(t_game *game)
+void	mouse_show(t_game *game)
 {
-	if (game->mlx_ptr)
-		mlx_destroy_display(game->mlx_ptr);
+	(void)game;
 }
 
-void	mouse_move(t_game *game, int x, int y)
+void	mouse_hide(t_game *game)
 {
-	mlx_mouse_move(game->mlx_ptr, game->win_ptr, x, y);
+	(void)game;
 }
 
 #endif
 
-#ifdef __APPLE__
+#ifdef __linux__
 
-void	free_linux(t_game *game)
+void	mouse_show(t_game *game)
 {
-	(void)game;
+	mlx_mouse_show(game->mlx_ptr, game->win_ptr);
 }
 
-void	mouse_move(t_game *game, int x, int y)
+void	mouse_hide(t_game *game)
 {
-	(void)game;
-	(void)x;
-	(void)y;
+	mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
 }
 
 #endif

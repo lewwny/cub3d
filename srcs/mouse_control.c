@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 17:28:49 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:49:55 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	mouse_control(t_game *game, int x, int y)
 	delta_y = y - previous_y;
 	previous_y = y;
 	rotated = rotate_player_by_mouse(game, delta_x, delta_y);
-	mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
+	mouse_move(game->win_ptr, WIDTH / 2, y);
 	previous_x = WIDTH / 2;
 	if (rotated)
 		raycasting(game);
@@ -116,7 +116,7 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
 		raycasting(game);
-		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
+		mouse_hide(game);
 	}
 	return (0);
 }
