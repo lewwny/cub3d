@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 14:52:01 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:21:58 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_keys(t_keys *keys)
 	keys->d = 0;
 	keys->left = 0;
 	keys->right = 0;
+	keys->up = 0;
+	keys->down = 0;
 	keys->esc = 0;
 }
 
@@ -35,6 +37,14 @@ static void	handle_movement(t_game *game)
 		move_player(game, KEY_A);
 	if (game->keys.d)
 		move_player(game, KEY_D);
+}
+
+static void	handle_vertical_rotation(t_game *game)
+{
+	if (game->keys.up && game->player.pitch < 400)
+		game->player.pitch += 20;
+	if (game->keys.down && game->player.pitch > -400)
+		game->player.pitch -= 20;
 }
 
 static void	handle_rotation(t_game *game)
@@ -61,6 +71,7 @@ static void	handle_rotation(t_game *game)
 		game->player.diry = old_dirx * sin(rotation_speed)
 			+ game->player.diry * cos(rotation_speed);
 	}
+	handle_vertical_rotation(game);
 }
 
 int	game_loop(t_game *game)

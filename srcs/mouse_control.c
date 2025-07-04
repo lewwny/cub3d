@@ -6,13 +6,13 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 15:01:48 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:28:49 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	rotate_player_by_mouse(t_game *game, int delta_x)
+static int	rotate_player_by_mouse(t_game *game, int delta_x, int delta_y)
 {
 	double	rot_speed;
 	double	old_dirx;
@@ -35,19 +35,24 @@ static int	rotate_player_by_mouse(t_game *game, int delta_x)
 			+ game->player.planey * cos(angle);
 		return (1);
 	}
+	(void)delta_y;
 	return (0);
 }
 
 static void	mouse_control(t_game *game, int x, int y)
 {
 	static int	previous_x = WIDTH / 2;
+	static int	previous_y = HEIGHT / 2;
 	int			delta_x;
+	int			delta_y;
 	int			rotated;
 
 	(void)y;
 	delta_x = x - previous_x;
 	previous_x = x;
-	rotated = rotate_player_by_mouse(game, delta_x);
+	delta_y = y - previous_y;
+	previous_y = y;
+	rotated = rotate_player_by_mouse(game, delta_x, delta_y);
 	mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
 	previous_x = WIDTH / 2;
 	if (rotated)
@@ -105,7 +110,7 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 	(void)x;
 	(void)y;
 	if (button == 1 && (game->menu_mode == 2 || game->menu_mode == 7))
-		destroy_game(game);
+		quit_game(game);
 	if (button == 1 && (game->menu_mode == 1 || game->menu_mode == 6))
 	{
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);

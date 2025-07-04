@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 11:21:04 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:15:53 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	wall_height(t_game *game)
 
 	ray = &game->player.ray;
 	ray->wall.height = (int)(HEIGHT / ray->distance);
-	ray->wall.start = -ray->wall.height / 2 + HEIGHT / 2;
+	ray->wall.start = -ray->wall.height / 2 + HEIGHT / 2 + game->player.pitch;
 	if (ray->wall.start < 0)
 		ray->wall.start = 0;
-	ray->wall.end = ray->wall.height / 2 + HEIGHT / 2;
+	ray->wall.end = ray->wall.height / 2 + HEIGHT / 2 + game->player.pitch;
 	if (ray->wall.end >= HEIGHT)
 		ray->wall.end = HEIGHT - 1;
 }
@@ -92,5 +92,6 @@ void	raycasting(t_game *game)
 		draw_wall(game, x);
 		x++;
 	}
+	mlx_clear_window(game->mlx_ptr, game->win_ptr);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->buftmp, 0, 0);
 }

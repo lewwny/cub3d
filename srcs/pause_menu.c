@@ -6,13 +6,13 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:42:11 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 15:01:54 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:28:56 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	darken_image(t_game *game)
+static void	darken_image(t_game *game, int intensity)
 {
 	int	i;
 	int	color;
@@ -20,13 +20,15 @@ static void	darken_image(t_game *game)
 	int	g;
 	int	b;
 
+	if (intensity < 1)
+		intensity = 1;
 	i = 0;
 	while (i < WIDTH * HEIGHT)
 	{
 		color = game->buf[i];
-		r = ((color >> 16) & 0xFF) / 2;
-		g = ((color >> 8) & 0xFF) / 2;
-		b = (color & 0xFF) / 2;
+		r = ((color >> 16) & 0xFF) / intensity;
+		g = ((color >> 8) & 0xFF) / intensity;
+		b = (color & 0xFF) / intensity;
 		((int *)(game->buf))[i] = (color & 0xFF000000)
 			| (r << 16) | (g << 8) | b;
 		i++;
@@ -70,10 +72,15 @@ void	pause_menu(t_game *game)
 	{
 		game->menu_mode = 5;
 		mlx_mouse_show(game->mlx_ptr, game->win_ptr);
-		darken_image(game);
+		darken_image(game, 3);
 		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 			game->resume, 540, 264);
 		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 			game->quit, 540, 385);
 	}
+}
+
+void	quit_game(t_game *game)
+{
+	destroy_game(game);
 }

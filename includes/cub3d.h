@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 15:31:09 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:18:00 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
 #  define LINUX 0
+#  define KEY_UP 126
+#  define KEY_DOWN 125
 #  include "../mlx_mac/mlx.h"
 
 # elif __linux__
@@ -45,6 +47,8 @@
 #  define KEY_LEFT 65361
 #  define KEY_RIGHT 65363
 #  define LINUX 1
+#  define KEY_UP 65362
+#  define KEY_DOWN 65364
 #  include "../mlx_linux/mlx.h"
 
 # endif
@@ -113,6 +117,7 @@ typedef struct s_player
 	double	diry;
 	double	planex;
 	double	planey;
+	int		pitch;
 	t_ray	ray;
 }	t_player;
 
@@ -136,6 +141,8 @@ typedef struct s_keys
 	int		d;
 	int		left;
 	int		right;
+	int		up;
+	int		down;
 	int		esc;
 }	t_keys;
 
@@ -190,6 +197,7 @@ void	convert_texture(t_game *game);
 void	raycasting(t_game *game);
 void	pause_menu(t_game *game);
 void	update_pause_menu(t_game *game, int new_menu_mode);
+void	quit_game(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
