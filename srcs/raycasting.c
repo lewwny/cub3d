@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 17:15:53 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/04 21:03:25 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	wall_height(t_game *game)
 		ray->wall.start = 0;
 	ray->wall.end = ray->wall.height / 2 + HEIGHT / 2 + game->player.pitch;
 	if (ray->wall.end >= HEIGHT)
-		ray->wall.end = HEIGHT - 1;
+		ray->wall.end = HEIGHT;
 }
 
 void	cast_ray(t_game *game, double raydirx, double raydiry, int column)
@@ -60,11 +60,13 @@ static void	draw_wall(t_game *game, int x)
 	while (y < HEIGHT)
 	{
 		if (y < ray->wall.start)
-			game->buf[y * WIDTH + x] = 0xADD8E6;
+			game->buf[y * WIDTH + x] = game->color.ceiling.r << 16
+				| game->color.ceiling.g << 8 | game->color.ceiling.b;
 		else if (y >= ray->wall.start && y < ray->wall.end)
 			game->buf[y * WIDTH + x] = 0x654321;
 		else
-			game->buf[y * WIDTH + x] = 0x008000;
+			game->buf[y * WIDTH + x] = game->color.floor.r << 16
+				| game->color.floor.g << 8 | game->color.floor.b;
 		y++;
 	}
 }
