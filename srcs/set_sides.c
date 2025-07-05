@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_sides.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:30:45 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/04 13:45:53 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:43:49 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,40 @@ void	set_sides(t_game *game)
 	}
 }
 
+// void	color_sides(t_game *game, int x, int y)
+// {
+// 	t_ray	*ray;
+
+// 	ray = &game->player.ray;
+// 	if (ray->wall.side == NORTH)
+// 		game->buf[y * WIDTH + x] = 0xFF0000;
+// 	else if (ray->wall.side == SOUTH)
+// 		game->buf[y * WIDTH + x] = 0x00FF00;
+// 	else if (ray->wall.side == WEST)
+// 		game->buf[y * WIDTH + x] = 0x0000FF;
+// 	else if (ray->wall.side == EAST)
+// 		game->buf[y * WIDTH + x] = 0xFFFF00;
+// }
+
 void	color_sides(t_game *game, int x, int y)
 {
-	t_ray	*ray;
+	t_ray			*ray;
+	unsigned int	*tex;
 
+	tex = NULL;
 	ray = &game->player.ray;
 	if (ray->wall.side == NORTH)
-		game->buf[y * WIDTH + x] = 0xFF0000;
+		tex = game->texture.no_data;
 	else if (ray->wall.side == SOUTH)
-		game->buf[y * WIDTH + x] = 0x00FF00;
+		tex = game->texture.so_data;
 	else if (ray->wall.side == WEST)
-		game->buf[y * WIDTH + x] = 0x0000FF;
+		tex = game->texture.we_data;
 	else if (ray->wall.side == EAST)
-		game->buf[y * WIDTH + x] = 0xFFFF00;
+		tex = game->texture.ea_data;
+	int texY = (int)(ray->wall.tex_pos) & (64 - 1);
+	ray->wall.tex_pos += ray->wall.step;
+	int texX = (int)(ray->wall.wall_x * 64);
+	if (ray->wall.side == NORTH || ray->wall.side == SOUTH)
+		texX = 64 - texX - 1;
+	game->buf[y * WIDTH + x] = tex[texY * 64 + texX];
 }

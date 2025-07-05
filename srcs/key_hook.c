@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:59:17 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:32:35 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	mouse_control(t_game *game, int x, int y)
 	rotate_player_by_mouse(game, delta_x);
 	if (x <= 10 || x >= WIDTH - 10)
 	{
-		mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
+	//	mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
 		previous_x = WIDTH / 2;
 	}
 }
@@ -96,7 +96,7 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
 		raycasting(game);
-		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
+	//	mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
 	}
 	return (0);
 }

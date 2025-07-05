@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 14:49:39 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:46:59 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void	move_player(t_game *game, int keycode);
 void	extract_texture(t_game *game);
 void	convert_texture(t_game *game);
 void	raycasting(t_game *game);
+void	set_texture(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
