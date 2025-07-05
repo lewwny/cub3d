@@ -2,8 +2,8 @@ NO ./img/blue_planks.xpm
 SO ./img/yellow_planks.xpm
 WE ./img/red_planks.xpm
 EA ./img/green_planks.xpm
-F 220,100,0
-C 50,30,50
+F 144,238,144
+C 173,216,230
          111111111111111111111111
         1000000000110000000100001
         1011000001110010000000001

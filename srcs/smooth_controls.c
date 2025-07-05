@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   smooth_controls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 10:41:03 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:53:40 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_keys(t_keys *keys)
 	keys->d = 0;
 	keys->left = 0;
 	keys->right = 0;
+	keys->up = 0;
+	keys->down = 0;
 	keys->esc = 0;
 }
 
@@ -35,6 +37,14 @@ static void	handle_movement(t_game *game)
 		move_player(game, KEY_A);
 	if (game->keys.d)
 		move_player(game, KEY_D);
+}
+
+static void	handle_vertical_rotation(t_game *game)
+{
+	if (game->keys.up && game->player.pitch < 400)
+		game->player.pitch += 20;
+	if (game->keys.down && game->player.pitch > -400)
+		game->player.pitch -= 20;
 }
 
 static void	handle_rotation(t_game *game)
@@ -61,12 +71,16 @@ static void	handle_rotation(t_game *game)
 		game->player.diry = old_dirx * sin(rotation_speed)
 			+ game->player.diry * cos(rotation_speed);
 	}
+	handle_vertical_rotation(game);
 }
 
 int	game_loop(t_game *game)
 {
 	if (game->keys.esc)
-		destroy_game(game);
+	{
+		pause_menu(game);
+		game->keys.esc = 0;
+	}
 	handle_movement(game);
 	handle_rotation(game);
 	if (game->menu_mode == 4)
