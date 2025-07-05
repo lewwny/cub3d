@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/05 18:56:33 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/05 20:20:42 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ void	mouse_show(t_game *game);
 void	mouse_hide(t_game *game);
 void	mouse_move(t_game *game, int x, int y);
 void	set_texture(t_game *game);
+int		rotate_player_by_mouse(t_game *game, int delta_x, int delta_y);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

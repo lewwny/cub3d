@@ -6,7 +6,7 @@
 #    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/05 18:47:56 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/07/05 20:20:03 by lenygarcia       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			move_player.c extract_texture.c os.c convert_texture.c \
 			raycasting.c smooth_controls.c key_manage.c mouse_control.c \
 			pause_menu.c os_mouse.c side_text.c \
-			set_sides.c set_text.c 
+			set_sides.c set_text.c mouse_rotate.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

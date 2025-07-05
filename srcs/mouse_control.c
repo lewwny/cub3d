@@ -6,38 +6,11 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/05 18:53:49 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/05 20:19:39 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-static int	rotate_player_by_mouse(t_game *game, int delta_x, int delta_y)
-{
-	double	rot_speed;
-	double	old_dirx;
-	double	old_planex;
-	double	angle;
-
-	rot_speed = 0.0005;
-	if (delta_x != 0)
-	{
-		angle = delta_x * rot_speed;
-		old_dirx = game->player.dirx;
-		old_planex = game->player.planex;
-		game->player.dirx = game->player.dirx * cos(angle)
-			- game->player.diry * sin(angle);
-		game->player.diry = old_dirx * sin(angle)
-			+ game->player.diry * cos(angle);
-		game->player.planex = game->player.planex * cos(angle)
-			- game->player.planey * sin(angle);
-		game->player.planey = old_planex * sin(angle)
-			+ game->player.planey * cos(angle);
-		return (1);
-	}
-	(void)delta_y;
-	return (0);
-}
 
 static void	mouse_control(t_game *game, int x, int y)
 {
