@@ -20,7 +20,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			map_to_finalmap.c parse_map.c init_player.c \
 			move_player.c extract_texture.c os.c convert_texture.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
-			set_sides.c set_text.c
+			set_sides.c set_text.c draw_text.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

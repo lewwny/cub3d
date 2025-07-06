@@ -98,6 +98,7 @@ typedef struct s_wall
 	int				start;
 	int				end;
 	int				side;
+	int				color;
 	double			wall_x;
 	double			step;
 	double			tex_pos;
@@ -225,5 +226,8 @@ void	init_sides(t_game *game, double raydirx, double raydiry);
 void	perform_dda(t_game *game);
 void	set_sides(t_game *game);
 void	color_sides(t_game *game, int x, int y);
+void	set_texture(t_game *game);
+void	draw_wall_textured(t_game *game, int x, int y);
+void	calculate_y_tex(t_game *game);
 
 #endif

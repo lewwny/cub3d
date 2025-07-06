@@ -24,6 +24,12 @@ void	set_texture(t_game *game)
 	else
 		ray->wall.wall_x = player->posx + ray->distance * ray->ray_x;
 	ray->wall.wall_x -= floor(ray->wall.wall_x);
+	ray->wall.tex_x = (int)(ray->wall.wall_x * 64.0);
+	if (ray->side == NO_SO && ray->ray_x > 0)
+		ray->wall.tex_x = 64 - ray->wall.tex_x - 1;
+	if (ray->side == WE_EA && ray->ray_y < 0)
+		ray->wall.tex_x = 64 - ray->wall.tex_x - 1;
+	ray->wall.tex_x /= 4;
 	ray->wall.step = 1.0 * 64 / ray->wall.height;
 	ray->wall.step /= 4;
 	ray->wall.tex_pos = ray->wall.step * (ray->wall.start - HEIGHT / 2 + ray->wall.height / 2);

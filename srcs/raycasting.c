@@ -52,7 +52,7 @@ static void	draw_wall(t_game *game, int x)
 		if (y < ray->wall.start)
 			game->buf[y * WIDTH + x] = 0xADD8E6;
 		else if (y >= ray->wall.start && y < ray->wall.end)
-			color_sides(game, x, y);
+			draw_wall_textured(game, x, y);
 		else
 			game->buf[y * WIDTH + x] = 0x008000;
 		y++;
