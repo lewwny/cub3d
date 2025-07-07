@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 20:50:11 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/07 15:19:44 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define DDA_INF 1e30
+
+# define NO_SO 0
+# define WE_EA 1
+
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
 
 # ifdef __APPLE__ 
 
@@ -91,21 +98,37 @@ typedef struct s_color
 
 typedef struct s_wall
 {
-	int	height;
-	int	start;
-	int	end;
+	int				height;
+	int				start;
+	int				end;
+	int				side;
+	int				color;
+	double			wall_x;
+	double			step;
+	double			tex_pos;
+	int				tex_x;
+	int				tex_y;
+	unsigned int	*data;
 }	t_wall;
 
 typedef struct s_ray
 {
 	double	camera_x;
-	double	rayx;
-	double	rayy;
+	double	ray_x;
+	double	ray_y;
 	double	stepsize;
+	double	step_size_x;
+	double	step_size_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	double	distance;
 	double	wall_x;
 	int		mapx;
 	int		mapy;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		side;
+	bool	hit;
 	t_wall	wall;
 }	t_ray;
 
@@ -121,6 +144,16 @@ typedef struct s_player
 	t_ray	ray;
 }	t_player;
 
+typedef struct s_tex_data
+{
+	int				width;
+	int				height;
+	int				endian;
+	int				bpp;
+	int				size_line;
+	unsigned int	*data;
+}	t_tex_data;
+
 typedef struct s_texture
 {
 	void			*no;
@@ -131,6 +164,7 @@ typedef struct s_texture
 	unsigned int	*so_data;
 	unsigned int	*we_data;
 	unsigned int	*ea_data;
+	t_tex_data		tex_ptr[4];
 }	t_texture;
 
 typedef struct s_keys
@@ -167,6 +201,9 @@ typedef struct s_game
 	int			width;
 	int			height;
 	int			menu_mode;
+	int			line_len;
+	int			bpp;
+	int			endian;
 	char		**map;
 	char		**tmp;
 	char		**final_map;
@@ -219,5 +256,17 @@ int		key_release(int keycode, t_game *game);
 int		game_loop(t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
+void	update_menu_mode(t_game *game, int new_menu_mode);
+void	mouse_control(t_game *game, int x, int y);
+void	rotate_player_by_mouse(t_game *game, int delta_x);
+
+//INIT FUNCTIONS
+void	init_sides(t_game *game, double raydirx, double raydiry);
+void	perform_dda(t_game *game);
+void	set_sides(t_game *game);
+void	color_sides(t_game *game, int x, int y);
+void	set_texture(t_game *game, double raydirx, double raydiry);
+void	draw_wall_textured(t_game *game, int x, int y);
+void	calculate_y_tex(t_game *game);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 16:14:42 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:19:19 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	load_buffer_images(t_game *game)
 	if (!game->buftmp)
 		destroy_game_failure(game, "Failed to create new image");
 	game->buf = (int *)mlx_get_data_addr(game->buftmp,
-			&game->width, &tmp, &tmp);
+			&game->width, &game->line_len, &game->bpp);
 }
 
 static void	load_menu_button_images(t_game *game)

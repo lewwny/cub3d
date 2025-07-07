@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
+#    By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/04 20:53:41 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/07/07 15:18:45 by macauchy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,15 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			utils.c parse_texture.c parse_color.c parse_line.c \
 			map_to_finalmap.c parse_map.c init_player.c \
 			move_player.c extract_texture.c os.c convert_texture.c \
-			raycasting.c smooth_controls.c key_manage.c mouse_control.c \
-			pause_menu.c os_mouse.c
+			mouse_control.c pause_menu.c os_mouse.c \
+			raycasting.c smooth_controls.c key_manage.c side_text.c \
+			set_sides.c set_text.c draw_text.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+HEADERS		= includes/cub3d.h
 
 NAME		= cub3d
 
@@ -60,7 +63,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
 	@printf "$(GREEN)✔ Build complete!$(RESET)\n"
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c $(HEADERS)
 	@mkdir -p $(dir $@)
 	@printf "$(CYAN)Compiling $<...$(RESET)\n"
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   smooth_controls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 17:21:58 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:19:53 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	handle_rotation(t_game *game)
 
 	if (game->menu_mode != 4)
 		return ;
-	rotation_speed = 0.05;
+	rotation_speed = 0.0075;
 	if (game->keys.left)
 	{
 		old_dirx = game->player.dirx;
