@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+         #
+#    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/07 16:51:32 by macauchy         ###   ########.fr        #
+#    Updated: 2025/07/07 18:33:52 by lenygarcia       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 HEADERS		= includes/cub3d.h
 
-NAME		= cub3d
+NAME		= cub3D
 
 UNAME_S		= $(shell uname -s)
 
