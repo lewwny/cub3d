@@ -6,7 +6,7 @@
 #    By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/07 15:32:21 by macauchy         ###   ########.fr        #
+#    Updated: 2025/07/07 16:51:32 by macauchy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			utils.c parse_texture.c parse_color.c parse_line.c \
 			map_to_finalmap.c parse_map.c init_player.c \
 			move_player.c extract_texture.c os.c convert_texture.c \
-			mouse_control.c pause_menu.c os_mouse.c \
+			mouse_control.c pause_menu.c os_mouse.c mouse_rotate.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
 			set_sides.c set_text.c draw_text.c
 SRC_DIR		= srcs

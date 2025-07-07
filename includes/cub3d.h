@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 15:48:49 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:50:46 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ void	quit_game(t_game *game);
 void	mouse_show(t_game *game);
 void	mouse_hide(t_game *game);
 void	mouse_move(t_game *game, int x, int y);
+int		rotate_player_by_mouse(t_game *game, int delta_x, int delta_y);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
@@ -256,9 +257,8 @@ int		key_release(int keycode, t_game *game);
 int		game_loop(t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
-void	update_menu_mode(t_game *game, int new_menu_mode);
-void	mouse_control(t_game *game, int x, int y);
-void	rotate_player_by_mouse(t_game *game, int delta_x);
+// void	update_menu_mode(t_game *game, int new_menu_mode);
+// void	mouse_control(t_game *game, int x, int y);
 
 //INIT FUNCTIONS
 void	init_sides(t_game *game, double raydirx, double raydiry);

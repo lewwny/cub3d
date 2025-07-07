@@ -6,79 +6,54 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 15:48:30 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:55:30 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// static int	rotate_player_by_mouse_int(t_game *game, int delta_x)
-// {
-// 	double	rot_speed;
-// 	double	old_dirx;
-// 	double	old_planex;
-// 	double	angle;
+void	mouse_control(t_game *game, int x, int y)
+{
+	static int	previous_x = WIDTH / 2;
+	static int	previous_y = HEIGHT / 2;
+	int			delta_x;
+	int			delta_y;
 
-// 	rot_speed = 0.0005;
-// 	if (delta_x != 0)
-// 	{
-// 		angle = delta_x * rot_speed;
-// 		old_dirx = game->player.dirx;
-// 		old_planex = game->player.planex;
-// 		game->player.dirx = game->player.dirx * cos(angle)
-// 			- game->player.diry * sin(angle);
-// 		game->player.diry = old_dirx * sin(angle)
-// 			+ game->player.diry * cos(angle);
-// 		game->player.planex = game->player.planex * cos(angle)
-// 			- game->player.planey * sin(angle);
-// 		game->player.planey = old_planex * sin(angle)
-// 			+ game->player.planey * cos(angle);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+	if (!game || !game->mlx_ptr || !game->win_ptr)
+		return;
+	(void)y;
+	delta_x = x - previous_x;
+	previous_x = x;
+	delta_y = y - previous_y;
+	previous_y = y;
+	rotate_player_by_mouse(game, delta_x, delta_y);
+	mouse_move(game, WIDTH / 2, y);
+	previous_x = WIDTH / 2;
+}
 
-// void	mouse_control(t_game *game, int x, int y)
-// {
-// 	static int	previous_x = WIDTH / 2;
-// 	static int	previous_y = HEIGHT / 2;
-// 	int			delta_x;
-// 	int			delta_y;
-// 	int			rotated;
-
-// 	(void)y;
-// 	delta_x = x - previous_x;
-// 	previous_x = x;
-// 	delta_y = y - previous_y;
-// 	previous_y = y;
-// 	rotated = rotate_player_by_mouse_int(game, delta_x);
-// 	mouse_move(game->win_ptr, WIDTH / 2, y);
-// 	previous_x = WIDTH / 2;
-// 	if (rotated)
-// 		raycasting(game);
-// }
-
-// void	update_menu_mode(t_game *game, int new_menu_mode)
-// {
-// 	if (new_menu_mode != game->menu_mode)
-// 	{
-// 		game->menu_mode = new_menu_mode;
-// 		if (game->menu_mode == 1)
-// 			mlx_put_image_to_window(game->mlx_ptr,
-// 				game->win_ptr, game->menu2, 0, 0);
-// 		else if (game->menu_mode == 2)
-// 			mlx_put_image_to_window(game->mlx_ptr,
-// 				game->win_ptr, game->menu3, 0, 0);
-// 		else if (game->menu_mode == 0)
-// 			mlx_put_image_to_window(game->mlx_ptr,
-// 				game->win_ptr, game->menu, 0, 0);
-// 	}
-// }
+void	update_menu_mode(t_game *game, int new_menu_mode)
+{
+	if (new_menu_mode != game->menu_mode)
+	{
+		game->menu_mode = new_menu_mode;
+		if (game->menu_mode == 1)
+			mlx_put_image_to_window(game->mlx_ptr,
+				game->win_ptr, game->menu2, 0, 0);
+		else if (game->menu_mode == 2)
+			mlx_put_image_to_window(game->mlx_ptr,
+				game->win_ptr, game->menu3, 0, 0);
+		else if (game->menu_mode == 0)
+			mlx_put_image_to_window(game->mlx_ptr,
+				game->win_ptr, game->menu, 0, 0);
+	}
+}
 
 int	on_mouse_move(int x, int y, t_game *game)
 {
 	int	new_menu_mode;
 
+	if (!game || !game->mlx_ptr || !game->win_ptr)
+		return (0);
 	new_menu_mode = 0;
 	if (game->menu_mode == 4)
 	{
