@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 16:57:25 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:38:10 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define SOUTH 1
 # define WEST 2
 # define EAST 3
+
+# define ROT_SPEED 0.001
 
 # ifdef __APPLE__ 
 
@@ -59,6 +61,35 @@
 #  include "../mlx_linux/mlx.h"
 
 # endif
+
+typedef enum e_anim_type
+{
+	ANIM_NONE,
+	ANIM_MOVE,
+	ANIM_TURN
+}	t_anim_type;
+
+typedef struct s_move_anim
+{
+	t_anim_type	type;
+	double		start_x;
+	double		start_y;
+	double		end_x;
+	double		end_y;
+	int			frame;
+	int			total_frames;
+	double		(*ease_fn)(double);
+}	t_move_anim;
+
+typedef struct s_rot_anim
+{
+	t_anim_type	type;
+	double		start_angle;
+	double		end_angle;
+	int			frame;
+	int			total_frames;
+	double		(*ease_fn)(double);
+}	t_rot_anim;
 
 typedef struct s_parse
 {
@@ -207,6 +238,10 @@ typedef struct s_game
 	char		**map;
 	char		**tmp;
 	char		**final_map;
+	double		cam_angle;
+	double		cam_target;
+	t_move_anim	move_anim;
+	t_rot_anim	rot_anim;
 	t_gb		*garbage;
 	t_parse		parse;
 	t_player	player;
@@ -266,5 +301,17 @@ void	color_sides(t_game *game, int x, int y);
 void	set_texture(t_game *game, double raydirx, double raydiry);
 void	draw_wall_textured(t_game *game, int x, int y);
 void	calculate_y_tex(t_game *game);
+
+//ANIMATION
+double	ease_linear(double t);
+double	ease_in_quad(double t);
+double	ease_out_quad(double t);
+double	ease_in_out_cubic(double t);
+void	handle_animation(t_game *game);
+void	handle_rotation_animation(t_game *game, double elapsed);
+void	apply_final_rotation(t_game *game);
+void	start_rotation_animation(t_game *game, double angle_delta);
+void	extend_rotation_animation(t_game *game, double angle_delta);
+void	schedule_rotation(t_game *game, double angle_delta);
 
 #endif

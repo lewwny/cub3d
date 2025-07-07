@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:50:08 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/07 17:08:41 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:39:24 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,13 @@
 static int	rotate_player_horizontal(t_game *game, int delta_x)
 {
 	double	rot_speed;
-	double	old_dirx;
-	double	old_planex;
 	double	angle;
 
 	if (delta_x == 0)
 		return (0);
-	rot_speed = 0.0005;
+	rot_speed = ROT_SPEED / 1.5;
 	angle = delta_x * rot_speed;
-	old_dirx = game->player.dirx;
-	old_planex = game->player.planex;
-	game->player.dirx = game->player.dirx * cos(angle)
-		- game->player.diry * sin(angle);
-	game->player.diry = old_dirx * sin(angle)
-		+ game->player.diry * cos(angle);
-	game->player.planex = game->player.planex * cos(angle)
-		- game->player.planey * sin(angle);
-	game->player.planey = old_planex * sin(angle)
-		+ game->player.planey * cos(angle);
+	schedule_rotation(game, angle);
 	return (1);
 }
 

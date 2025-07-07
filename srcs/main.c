@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 20:47:33 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/07 18:25:18 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static void	init_game(t_game *game, int argc, char **argv)
 	}
 	game->width = WIDTH;
 	game->height = HEIGHT;
+	game->cam_angle = atan2(game->player.diry, game->player.dirx);
+	game->cam_target = atan2(game->player.dirx, -game->player.diry);
+	game->move_anim.type = ANIM_NONE;
+	game->rot_anim.type = ANIM_NONE;
 }
 
 void	destroy_game(t_game *game)

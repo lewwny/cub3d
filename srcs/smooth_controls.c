@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 15:19:53 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:49:44 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,15 @@ static void	handle_vertical_rotation(t_game *game)
 
 static void	handle_rotation(t_game *game)
 {
-	double	old_dirx;
 	double	rotation_speed;
 
 	if (game->menu_mode != 4)
 		return ;
-	rotation_speed = 0.0075;
+	rotation_speed = 0.015;
 	if (game->keys.left)
-	{
-		old_dirx = game->player.dirx;
-		game->player.dirx = game->player.dirx * cos(-rotation_speed)
-			- game->player.diry * sin(-rotation_speed);
-		game->player.diry = old_dirx * sin(-rotation_speed)
-			+ game->player.diry * cos(-rotation_speed);
-	}
+		schedule_rotation(game, -rotation_speed);
 	if (game->keys.right)
-	{
-		old_dirx = game->player.dirx;
-		game->player.dirx = game->player.dirx * cos(rotation_speed)
-			- game->player.diry * sin(rotation_speed);
-		game->player.diry = old_dirx * sin(rotation_speed)
-			+ game->player.diry * cos(rotation_speed);
-	}
+		schedule_rotation(game, rotation_speed);
 	handle_vertical_rotation(game);
 }
 
@@ -81,6 +68,7 @@ int	game_loop(t_game *game)
 		pause_menu(game);
 		game->keys.esc = 0;
 	}
+	handle_animation(game);
 	handle_movement(game);
 	handle_rotation(game);
 	if (game->menu_mode == 4)

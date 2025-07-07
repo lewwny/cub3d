@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 16:55:30 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:15:01 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 		quit_game(game);
 	if (button == 1 && (game->menu_mode == 1 || game->menu_mode == 6))
 	{
-		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
 		raycasting(game);
 		mouse_hide(game);

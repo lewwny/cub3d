@@ -6,57 +6,21 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 16:56:34 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:49:44 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// void	rotate_player_by_mouse(t_game *game, int delta_x)
-// {
-// 	double	rot_speed;
-// 	double	old_dirx;
-// 	double	old_planex;
-// 	double	angle;
-
-// 	rot_speed = 0.0005;
-// 	if (delta_x != 0)
-// 	{
-// 		angle = delta_x * rot_speed;
-// 		old_dirx = game->player.dirx;
-// 		old_planex = game->player.planex;
-// 		game->player.dirx = game->player.dirx * cos(angle)
-// 			- game->player.diry * sin(angle);
-// 		game->player.diry = old_dirx * sin(angle)
-// 			+ game->player.diry * cos(angle);
-// 		game->player.planex = game->player.planex * cos(angle)
-// 			- game->player.planey * sin(angle);
-// 		game->player.planey = old_planex * sin(angle)
-// 			+ game->player.planey * cos(angle);
-// 	}
-// }
-
 static void	turn_player(t_game *game, int direction)
 {
-	double	old_dirx;
+	double	rotation_speed;
 
+	rotation_speed = 0.015;
 	if (direction == -1)
-	{
-		old_dirx = game->player.dirx;
-		game->player.dirx = game->player.dirx * cos(-0.1)
-			- game->player.diry * sin(-0.1);
-		game->player.diry = old_dirx * sin(-0.1)
-			+ game->player.diry * cos(-0.1);
-	}
+		schedule_rotation(game, -rotation_speed);
 	else if (direction == 1)
-	{
-		old_dirx = game->player.dirx;
-		game->player.dirx = game->player.dirx * cos(0.1)
-			- game->player.diry * sin(0.1);
-		game->player.diry = old_dirx * sin(0.1)
-			+ game->player.diry * cos(0.1);
-	}
-	raycasting(game);
+		schedule_rotation(game, rotation_speed);
 }
 
 int	key_hook(int keycode, t_game *game)
