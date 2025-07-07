@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 15:22:53 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:43:47 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
 void	update_menu_mode(t_game *game, int new_menu_mode);
 void	mouse_control(t_game *game, int x, int y);
-void	rotate_player_by_mouse(t_game *game, int delta_x);
+int		rotate_player_by_mouse(t_game *game, int delta_x);
 
 //INIT FUNCTIONS
 void	init_sides(t_game *game, double raydirx, double raydiry);
