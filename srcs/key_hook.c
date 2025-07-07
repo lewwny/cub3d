@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 15:19:09 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:33:23 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,41 +37,41 @@ void	rotate_player_by_mouse(t_game *game, int delta_x)
 	}
 }
 
-int	on_mouse_move(int x, int y, t_game *game)
-{
-	int	new_menu_mode;
+// int	on_mouse_move(int x, int y, t_game *game)
+// {
+// 	int	new_menu_mode;
 
-	new_menu_mode = 0;
-	if (game->menu_mode == 4)
-	{
-		mouse_control(game, x, y);
-		return (0);
-	}
-	if (x >= 404 && x <= 957 && y >= 144 && y <= 324)
-		new_menu_mode = 1;
-	else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
-		new_menu_mode = 2;
-	if (new_menu_mode != game->menu_mode)
-		update_menu_mode(game, new_menu_mode);
-	game->menu_mode = new_menu_mode;
-	return (0);
-}
+// 	new_menu_mode = 0;
+// 	if (game->menu_mode == 4)
+// 	{
+// 		mouse_control(game, x, y);
+// 		return (0);
+// 	}
+// 	if (x >= 404 && x <= 957 && y >= 144 && y <= 324)
+// 		new_menu_mode = 1;
+// 	else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
+// 		new_menu_mode = 2;
+// 	if (new_menu_mode != game->menu_mode)
+// 		update_menu_mode(game, new_menu_mode);
+// 	game->menu_mode = new_menu_mode;
+// 	return (0);
+// }
 
-int	on_mouse_click(int button, int x, int y, t_game *game)
-{
-	(void)x;
-	(void)y;
-	if (button == 1 && game->menu_mode == 2)
-		destroy_game(game);
-	if (button == 1 && game->menu_mode == 1)
-	{
-		mlx_clear_window(game->mlx_ptr, game->win_ptr);
-		game->menu_mode = 4;
-		raycasting(game);
-		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
-	}
-	return (0);
-}
+// int	on_mouse_click(int button, int x, int y, t_game *game)
+// {
+// 	(void)x;
+// 	(void)y;
+// 	if (button == 1 && game->menu_mode == 2)
+// 		destroy_game(game);
+// 	if (button == 1 && game->menu_mode == 1)
+// 	{
+// 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
+// 		game->menu_mode = 4;
+// 		raycasting(game);
+// 		mlx_mouse_hide(game->mlx_ptr, game->win_ptr);
+// 	}
+// 	return (0);
+// }
 
 static void	turn_player(t_game *game, int direction)
 {

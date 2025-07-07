@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 15:19:19 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:20:54 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static void	load_menu_images(t_game *game)
 
 static void	load_buffer_images(t_game *game)
 {
-	int	tmp;
-
 	game->buftmp = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	if (!game->buftmp)
 		destroy_game_failure(game, "Failed to create new image");
