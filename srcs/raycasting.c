@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/04 13:38:45 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:59:24 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	raycasting(t_game *game)
 		game->player.ray.distance *= (raydirx * game->player.dirx)
 			+ (raydiry * game->player.diry);
 		wall_height(game);
+		set_texture(game, raydirx, raydiry);
 		draw_wall(game, x);
 		x++;
 	}

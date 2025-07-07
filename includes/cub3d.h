@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 14:49:39 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:15:14 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,16 @@ typedef struct s_player
 	t_ray	ray;
 }	t_player;
 
+typedef struct s_tex_data
+{
+	int				width;
+	int				height;
+	int				endian;
+	int				bpp;
+	int				size_line;
+	unsigned int	*data;
+}	t_tex_data;
+
 typedef struct s_texture
 {
 	void			*no;
@@ -149,7 +159,7 @@ typedef struct s_texture
 	unsigned int	*so_data;
 	unsigned int	*we_data;
 	unsigned int	*ea_data;
-	unsigned int	*text_ptr[4];
+	t_tex_data		tex_ptr[4];
 }	t_texture;
 
 typedef struct s_keys
@@ -175,6 +185,9 @@ typedef struct s_game
 	int			width;
 	int			height;
 	int			menu_mode;
+	int			line_len;
+	int			bpp;
+	int			endian;
 	char		**map;
 	char		**tmp;
 	char		**final_map;
@@ -220,13 +233,16 @@ int		key_release(int keycode, t_game *game);
 int		game_loop(t_game *game);
 int		on_mouse_move(int x, int y, t_game *game);
 int		on_mouse_click(int button, int x, int y, t_game *game);
+void	update_menu_mode(t_game *game, int new_menu_mode);
+void	mouse_control(t_game *game, int x, int y);
+void	rotate_player_by_mouse(t_game *game, int delta_x);
 
 //INIT FUNCTIONS
 void	init_sides(t_game *game, double raydirx, double raydiry);
 void	perform_dda(t_game *game);
 void	set_sides(t_game *game);
 void	color_sides(t_game *game, int x, int y);
-void	set_texture(t_game *game);
+void	set_texture(t_game *game, double raydirx, double raydiry);
 void	draw_wall_textured(t_game *game, int x, int y);
 void	calculate_y_tex(t_game *game);
 

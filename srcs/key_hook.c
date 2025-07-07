@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:56:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 19:59:17 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:14:40 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	rotate_player_by_mouse(t_game *game, int delta_x)
+void	rotate_player_by_mouse(t_game *game, int delta_x)
 {
 	double	rot_speed;
 	double	old_dirx;
@@ -37,22 +37,6 @@ static void	rotate_player_by_mouse(t_game *game, int delta_x)
 	}
 }
 
-static void	mouse_control(t_game *game, int x, int y)
-{
-	static int	previous_x = WIDTH / 2;
-	int			delta_x;
-
-	(void)y;
-	delta_x = x - previous_x;
-	previous_x = x;
-	rotate_player_by_mouse(game, delta_x);
-	if (x <= 10 || x >= WIDTH - 10)
-	{
-		mlx_mouse_move(game->mlx_ptr, game->win_ptr, WIDTH / 2, y);
-		previous_x = WIDTH / 2;
-	}
-}
-
 int	on_mouse_move(int x, int y, t_game *game)
 {
 	int	new_menu_mode;
@@ -68,19 +52,7 @@ int	on_mouse_move(int x, int y, t_game *game)
 	else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
 		new_menu_mode = 2;
 	if (new_menu_mode != game->menu_mode)
-	{
-		game->menu_mode = new_menu_mode;
-		mlx_clear_window(game->mlx_ptr, game->win_ptr);
-		if (game->menu_mode == 1)
-			mlx_put_image_to_window(game->mlx_ptr,
-				game->win_ptr, game->menu2, 0, 0);
-		else if (game->menu_mode == 2)
-			mlx_put_image_to_window(game->mlx_ptr,
-				game->win_ptr, game->menu3, 0, 0);
-		else
-			mlx_put_image_to_window(game->mlx_ptr,
-				game->win_ptr, game->menu, 0, 0);
-	}
+		update_menu_mode(game, new_menu_mode);
 	game->menu_mode = new_menu_mode;
 	return (0);
 }
