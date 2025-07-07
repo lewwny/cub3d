@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 18:28:33 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/07 18:52:56 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	mouse_control(t_game *game, int x, int y)
 
 	if (!game || !game->mlx_ptr || !game->win_ptr)
 		return ;
-	(void)y;
 	delta_x = x - previous_x;
 	previous_x = x;
 	delta_y = y - previous_y;
@@ -80,7 +79,7 @@ int	on_mouse_move(int x, int y, t_game *game)
 	{
 		mouse_control(game, x, y);
 		return (0);
-	}	
+	}
 	return (handle_game_menu_mouse_move(x, y, game));
 }
 
