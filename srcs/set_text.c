@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:46:01 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/07 15:00:48 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:03:02 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	set_texture(t_game *game, double raydirx, double raydiry)
 	ray->wall.step = 1.0 * game->texture.tex_ptr[ray->wall.side].height
 		/ ray->wall.height;
 	ray->wall.tex_pos = ray->wall.step * (ray->wall.start - HEIGHT / 2
-			+ ray->wall.height / 2);
+			+ ray->wall.height / 2 - game->player.pitch);
 }

@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:50:08 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/07 16:50:10 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:08:41 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	rotate_player_vertical(t_game *game, int delta_y)
 {
 	if (delta_y == 0)
 		return (0);
-	game->player.pitch -= delta_y * 20;
+	game->player.pitch -= delta_y;
 	if (game->player.pitch > 400)
 		game->player.pitch = 400;
 	else if (game->player.pitch < -400)
