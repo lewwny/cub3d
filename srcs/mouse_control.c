@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 16:55:30 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:28:33 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mouse_control(t_game *game, int x, int y)
 	int			delta_y;
 
 	if (!game || !game->mlx_ptr || !game->win_ptr)
-		return;
+		return ;
 	(void)y;
 	delta_x = x - previous_x;
 	previous_x = x;
@@ -48,18 +48,11 @@ void	update_menu_mode(t_game *game, int new_menu_mode)
 	}
 }
 
-int	on_mouse_move(int x, int y, t_game *game)
+int	handle_game_menu_mouse_move(int x, int y, t_game *game)
 {
 	int	new_menu_mode;
 
-	if (!game || !game->mlx_ptr || !game->win_ptr)
-		return (0);
 	new_menu_mode = 0;
-	if (game->menu_mode == 4)
-	{
-		mouse_control(game, x, y);
-		return (0);
-	}
 	if (game->menu_mode >= 5)
 	{
 		if (x >= 540 && x <= 750 && y >= 264 && y <= 334)
@@ -77,6 +70,18 @@ int	on_mouse_move(int x, int y, t_game *game)
 		new_menu_mode = 2;
 	update_menu_mode(game, new_menu_mode);
 	return (0);
+}
+
+int	on_mouse_move(int x, int y, t_game *game)
+{
+	if (!game || !game->mlx_ptr || !game->win_ptr)
+		return (0);
+	if (game->menu_mode == 4)
+	{
+		mouse_control(game, x, y);
+		return (0);
+	}	
+	return (handle_game_menu_mouse_move(x, y, game));
 }
 
 int	on_mouse_click(int button, int x, int y, t_game *game)

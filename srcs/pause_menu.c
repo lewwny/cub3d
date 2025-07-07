@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pause_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:42:11 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 15:51:02 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:28:20 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	pause_menu(t_game *game)
 	{
 		game->menu_mode = 4;
 		mouse_hide(game);
-		// raycasting(game);
 		return ;
 	}
 	else if (game->menu_mode == 4)
