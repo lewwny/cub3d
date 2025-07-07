@@ -6,7 +6,7 @@
 /*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:10 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/06/27 15:38:32 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/07 19:02:19 by lenygarcia       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ void	extract_map(char *filename, t_game *game)
 		exit(EXIT_FAILURE);
 	}
 	game->map = read_file(fd, game);
+	if (!game->map || !game->map[0])
+		destroy_game_failure(game, "Map is empty or invalid.");
 	truncate_newline(game->map);
 }
