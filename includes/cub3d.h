@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 16:57:25 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 10:37:27 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -42,6 +43,7 @@
 #  define LINUX 0
 #  define KEY_UP 126
 #  define KEY_DOWN 125
+#  define KEY_SHIFT 257
 #  include "../mlx_mac/mlx.h"
 
 # elif __linux__
@@ -56,6 +58,7 @@
 #  define LINUX 1
 #  define KEY_UP 65362
 #  define KEY_DOWN 65364
+#  define KEY_SHIFT 65505
 #  include "../mlx_linux/mlx.h"
 
 # endif
@@ -140,6 +143,9 @@ typedef struct s_player
 	double	diry;
 	double	planex;
 	double	planey;
+	double	fov;
+	double	target_fov;
+	double	move_speed;
 	int		pitch;
 	t_ray	ray;
 }	t_player;
@@ -178,6 +184,7 @@ typedef struct s_keys
 	int		up;
 	int		down;
 	int		esc;
+	int		shift;
 }	t_keys;
 
 typedef struct s_menu
@@ -204,6 +211,7 @@ typedef struct s_game
 	int			line_len;
 	int			bpp;
 	int			endian;
+	double		delta_time;
 	char		**map;
 	char		**tmp;
 	char		**final_map;
@@ -239,6 +247,11 @@ void	mouse_show(t_game *game);
 void	mouse_hide(t_game *game);
 void	mouse_move(t_game *game, int x, int y);
 int		rotate_player_by_mouse(t_game *game, int delta_x, int delta_y);
+double	get_delta_time(void);
+void	sprint_off(t_game *game);
+void	sprint_on(t_game *game);
+void	fov_sprint(t_game *game);
+void	handle_sprint(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

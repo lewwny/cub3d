@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   smooth_controls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 15:19:53 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 10:37:16 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_keys(t_keys *keys)
 	keys->up = 0;
 	keys->down = 0;
 	keys->esc = 0;
+	keys->shift = 0;
 }
 
 static void	handle_movement(t_game *game)
@@ -83,6 +84,9 @@ int	game_loop(t_game *game)
 	}
 	handle_movement(game);
 	handle_rotation(game);
+	handle_sprint(game);
+	game->delta_time = get_delta_time();
+	fov_sprint(game);
 	if (game->menu_mode == 4)
 		raycasting(game);
 	return (0);

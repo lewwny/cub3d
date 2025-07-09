@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 17:49:34 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 10:01:52 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/09 09:31:45 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ void	init_player(t_game *game)
 	init_player_pos(game);
 	init_player_direction(game);
 	init_player_plane(game);
+	game->player.fov = 0.66;
+	game->player.move_speed = 0.015;
 }

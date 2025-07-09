@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+         #
+#    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/07 18:33:52 by lenygarcia       ###   ########.fr        #
+#    Updated: 2025/07/09 09:47:20 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			move_player.c extract_texture.c os.c convert_texture.c \
 			mouse_control.c pause_menu.c os_mouse.c mouse_rotate.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
-			set_sides.c set_text.c draw_text.c
+			set_sides.c set_text.c draw_text.c sprint.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

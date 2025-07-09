@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 18:04:31 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 10:39:14 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 09:31:49 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,12 @@ static void	move_player_left(t_game *game, double move_speed)
 
 void	move_player(t_game *game, int keycode)
 {
-	double	move_speed;
-
-	move_speed = 0.015;
 	if (keycode == KEY_W)
-		move_player_forward(game, move_speed);
+		move_player_forward(game, game->player.move_speed);
 	else if (keycode == KEY_S)
-		move_player_backward(game, move_speed);
+		move_player_backward(game, game->player.move_speed);
 	else if (keycode == KEY_A)
-		move_player_left(game, move_speed);
+		move_player_left(game, game->player.move_speed);
 	else if (keycode == KEY_D)
-		move_player_right(game, move_speed);
+		move_player_right(game, game->player.move_speed);
 }

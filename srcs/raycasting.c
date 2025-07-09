@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 17:09:23 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 09:25:52 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	raycasting(t_game *game)
 	{
 		camera_x = (2 * x / (double)WIDTH) - 1;
 		ray_angle = atan2(game->player.diry, game->player.dirx)
-			+ camera_x * (0.66 / 2.0);
+			+ camera_x * (game->player.fov / 2.0);
 		raydirx = cos(ray_angle);
 		raydiry = sin(ray_angle);
 		cast_ray(game, raydirx, raydiry);
