@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/09 10:37:16 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:11:43 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,12 @@ int	game_loop(t_game *game)
 	fov_sprint(game);
 	if (game->menu_mode == 4)
 		raycasting(game);
+	if (game->host || game->join)
+	{
+		pthread_mutex_lock(&game->server.mutex);
+		_other()->posx = game->player.posx;
+		_other()->posy = game->player.posy;
+		pthread_mutex_unlock(&game->server.mutex);
+	}
 	return (0);
 }

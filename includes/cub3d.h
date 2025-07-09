@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/09 10:37:27 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:18:18 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include <math.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <sys/socket.h>
+# include <arpa/inet.h>
+# include <netinet/in.h>
+# include <sys/types.h>
+# include <pthread.h>
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -30,6 +35,8 @@
 # define SOUTH 1
 # define WEST 2
 # define EAST 3
+# define PORT 8080
+# define BUFFER_SIZE 20000
 
 # ifdef __APPLE__ 
 
@@ -62,6 +69,16 @@
 #  include "../mlx_linux/mlx.h"
 
 # endif
+
+typedef struct s_server
+{
+	int					server_fd;
+	int					client_fd;
+	struct sockaddr_in	server_addr;
+	struct sockaddr_in	client_addr;
+	socklen_t			addr_len;
+	pthread_mutex_t		mutex;
+}	t_server;
 
 typedef struct s_parse
 {
@@ -193,6 +210,14 @@ typedef struct s_menu
 	void		*quit2;
 }	t_menu;
 
+typedef struct s_other
+{
+	double	otherposx;
+	double	otherposy;
+	double	posx;
+	double	posy;
+}	t_other;
+
 typedef struct s_game
 {
 	void		*mlx_ptr;
@@ -211,6 +236,9 @@ typedef struct s_game
 	int			line_len;
 	int			bpp;
 	int			endian;
+	int			host;
+	int			join;
+	int			sock;
 	double		delta_time;
 	char		**map;
 	char		**tmp;
@@ -222,6 +250,7 @@ typedef struct s_game
 	t_color		color;
 	t_keys		keys;
 	t_menu		menuimg;
+	t_server	server;
 }	t_game;
 
 void	parsing(int argc, char **argv, t_game *game);
@@ -252,6 +281,11 @@ void	sprint_off(t_game *game);
 void	sprint_on(t_game *game);
 void	fov_sprint(t_game *game);
 void	handle_sprint(t_game *game);
+void	init_server(t_game *game);
+void	close_server(t_game *game);
+void	*server_thread(void *game);
+void	join_server(t_game *game, char **argv);
+t_other	*_other(void);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

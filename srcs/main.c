@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 20:47:33 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/09 16:14:03 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	destroy_game(t_game *game)
 	free_linux(game);
 	free(game->mlx_ptr);
 	free_all(&game->garbage);
+	close_server(game);
 	exit(0);
 }
 
@@ -66,9 +67,16 @@ static int	close_game(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_game		game;
+	pthread_t	server;
 
 	init_game(&game, argc, argv);
+	if (game.host)
+	{
+		init_server(&game);
+		pthread_create(&server, NULL, server_thread, &game);
+		pthread_mutex_init(&game.server.mutex, NULL);
+	}
 	load_img(&game);
 	mlx_hook(game.win_ptr, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win_ptr, 3, 1L << 1, key_release, &game);

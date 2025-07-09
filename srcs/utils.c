@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/04 15:34:14 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/09 12:26:51 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	destroy_game_failure(t_game *game, const char *message)
 		free(game->mlx_ptr);
 	ft_dprintf(2, "Error\n%s\n", message);
 	free_all(&game->garbage);
+	close_server(game);
 	exit(EXIT_FAILURE);
 }
 

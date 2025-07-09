@@ -6,13 +6,13 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:20:39 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/03 09:19:01 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:34:51 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	args_count(int argc)
+static void	args_count(int argc, char **argv, t_game *game)
 {
 	if (argc < 2)
 	{
@@ -21,6 +21,16 @@ static void	args_count(int argc)
 	}
 	else if (argc > 2)
 	{
+		if (argc == 3 && ft_strcmp("--host", argv[2]) == 0)
+		{
+			game->host = 1;
+			return ;
+		}
+		if (argc == 4 && ft_strcmp("--join", argv[1]) == 0)
+		{
+			game->join = 1;
+			return ;
+		}
 		ft_dprintf(2, "Error: Too many arguments.\n");
 		exit(EXIT_FAILURE);
 	}
@@ -40,11 +50,13 @@ static void	file_format(char *filename)
 
 void	parsing(int argc, char **argv, t_game *game)
 {
-	(void) game;
-	args_count(argc);
-	file_format(argv[1]);
-	extract_map(argv[1], game);
+	args_count(argc, argv, game);
+	if (game->join)
+		join_server(game, argv);
+	else
+	{
+		file_format(argv[1]);
+		extract_map(argv[1], game);
+	}
 	parse_map(game, &game->parse);
-	free_oldmap(game->map, &game->garbage);
-	game->map = NULL;
 }
