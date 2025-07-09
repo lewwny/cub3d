@@ -22,9 +22,10 @@ static unsigned int	get_fc_text_color(t_game *game, int is_floor)
 
 void	draw_ceil_col(t_game *game, int x, double raydirx, double raydiry)
 {
-	int		y;
-	double	row_dist;
-	t_ray	*ray;
+	int				y;
+	double			row_dist;
+	t_ray			*ray;
+	unsigned int	color;
 
 	ray = &game->player.ray;
 	y = 0;
@@ -33,29 +34,30 @@ void	draw_ceil_col(t_game *game, int x, double raydirx, double raydiry)
 		row_dist = HEIGHT / (2.0 * ((HEIGHT / 2.0 + game->player.pitch) - y));
 		ray->floor.floor_x = game->player.posx + row_dist * raydirx;
 		ray->floor.floor_y = game->player.posy + row_dist * raydiry;
-		game->buf[y * WIDTH + x] = get_fc_text_color(game, 2);
+		color = get_fc_text_color(game, 2);
+		color = apply_shading(color, row_dist);
+		game->buf[y * WIDTH + x] = color;
 		y++;
 	}
 }
 
 void	draw_floor_col(t_game *game, int x, double raydirx, double raydiry)
 {
-	int		y;
-	t_ray	*ray;
-	double	row_dist;
-	//double	step_x;
-	//double	step_y;
+	int				y;
+	t_ray			*ray;
+	double			row_dist;
+	unsigned int	color;
 
 	ray = &game->player.ray;
 	y = ray->wall.end;
 	while (y < HEIGHT)
 	{
 		row_dist = HEIGHT / (2.0 * (y - (HEIGHT / 2.0 + game->player.pitch)));
-		//step_x = row_dist * raydirx / WIDTH;
-		//step_y = row_dist * raydiry / WIDTH;
 		ray->floor.floor_x = game->player.posx + row_dist * raydirx;
 		ray->floor.floor_y = game->player.posy + row_dist * raydiry;
-		game->buf[y * WIDTH + x] = get_fc_text_color(game, 1);
+		color = get_fc_text_color(game, 1);
+		color = apply_shading(color, row_dist);
+		game->buf[y * WIDTH + x] = color;
 		y++;
 	}
 }

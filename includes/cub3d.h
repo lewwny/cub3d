@@ -330,4 +330,6 @@ void	start_rotation_animation(t_game *game, double angle_delta);
 void	extend_rotation_animation(t_game *game, double angle_delta);
 void	schedule_rotation(t_game *game, double angle_delta);
 
+unsigned int	apply_shading(unsigned int color, double dist);
+
 #endif

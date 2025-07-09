@@ -37,13 +37,17 @@ void	calculate_y_tex(t_game *game)
 
 void	draw_wall_textured(t_game *game, int x, int y)
 {
+	unsigned int	color;
+
 	calculate_y_tex(game);
 	if (game->player.ray.wall.tex_x >= 0 
 		&& game->player.ray.wall.tex_x < game->texture.tex_ptr[game->player.ray.wall.side].width
 		&& game->player.ray.wall.tex_y >= 0 
 		&& game->player.ray.wall.tex_y < game->texture.tex_ptr[game->player.ray.wall.side].height)
 	{
-		game->buf[y * WIDTH + x] = match_color_tex(game);
+		color = match_color_tex(game);
+		color = apply_shading(color, game->player.ray.distance);
+		game->buf[y * WIDTH + x] = color;
 	}
 	else
 	{

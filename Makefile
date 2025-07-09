@@ -22,7 +22,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			mouse_control.c pause_menu.c os_mouse.c mouse_rotate.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
 			set_sides.c set_text.c draw_text.c easing.c animation.c \
-			draw_floor_ceil.c
+			draw_floor_ceil.c shading.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj
