@@ -12,10 +12,23 @@ static unsigned int	get_fc_text_color(t_game *game, int is_floor)
 	cell_y = (int)game->player.ray.floor.floor_y;
 	if (cell_x < 0 || cell_y < 0 || cell_x >= game->width || cell_y >= game->height)
 		return (0);
-	tx = (int)(TEX_WIDTH * (game->player.ray.floor.floor_x - cell_x))
-			& (TEX_WIDTH - 1);
-	ty = (int)(TEX_HEIGHT * (game->player.ray.floor.floor_y - cell_y))
-			& (TEX_HEIGHT - 1);
+	game->rot.rotate = (cell_x + cell_y) % 2;
+	game->rot.frac_x = game->player.ray.floor.floor_x - cell_x;
+	game->rot.frac_y = game->player.ray.floor.floor_y - cell_y;
+	//tx = (int)(TEX_WIDTH * (game->player.ray.floor.floor_x - cell_x))
+	//		& (TEX_WIDTH - 1);
+	//ty = (int)(TEX_HEIGHT * (game->player.ray.floor.floor_y - cell_y))
+	//		& (TEX_HEIGHT - 1);
+	if (game->rot.rotate)
+	{
+		tx = (int)(TEX_WIDTH * (1.0 - game->rot.frac_y))	& (TEX_WIDTH - 1);
+		ty = (int)(TEX_HEIGHT * game->rot.frac_x)			& (TEX_HEIGHT - 1);
+	}
+	else
+	{
+		tx = (int)(TEX_WIDTH * game->rot.frac_x)			& (TEX_WIDTH - 1);
+		ty = (int)(TEX_HEIGHT * game->rot.frac_y)			& (TEX_HEIGHT - 1);
+	}
 	tex = &game->texture.tex_ptr[is_floor];
 	return (tex->data[ty * tex->width + tx]);
 }

@@ -25,7 +25,7 @@
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
 
-# define MAX_DIST 20.0
+# define MAX_DIST 17.5
 
 # define NO_SO 0
 # define WE_EA 1
@@ -95,6 +95,13 @@ typedef struct s_rot_anim
 	int			total_frames;
 	double		(*ease_fn)(double);
 }	t_rot_anim;
+
+typedef struct s_rotate
+{
+	int		rotate;
+	double	frac_x;
+	double	frac_y;
+}	t_rotate;
 
 typedef struct s_parse
 {
@@ -261,6 +268,7 @@ typedef struct s_game
 	t_player	player;
 	t_texture	texture;
 	t_color		color;
+	t_rotate	rot;
 	t_keys		keys;
 	t_menu		menuimg;
 }	t_game;
