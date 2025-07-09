@@ -22,6 +22,11 @@
 # define WIDTH 1280
 # define HEIGHT 720
 
+# define TEX_HEIGHT 64
+# define TEX_WIDTH 64
+
+# define MAX_DIST 20.0
+
 # define NO_SO 0
 # define WE_EA 1
 
@@ -116,9 +121,16 @@ typedef struct s_ceiling
 
 typedef struct s_floor
 {
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
+	int		x;
+	int		y;
+	double	row_dist;
+	double	step_x;
+	double	step_y;
+	double	floor_x;
+	double	floor_y;
 }	t_floor;
 
 typedef struct s_color
@@ -161,6 +173,7 @@ typedef struct s_ray
 	int		side;
 	bool	hit;
 	t_wall	wall;
+	t_floor	floor;
 }	t_ray;
 
 typedef struct s_player
@@ -240,6 +253,7 @@ typedef struct s_game
 	char		**final_map;
 	double		cam_angle;
 	double		cam_target;
+	double		z_buffer[WIDTH];
 	t_move_anim	move_anim;
 	t_rot_anim	rot_anim;
 	t_gb		*garbage;
@@ -266,6 +280,8 @@ void	free_oldmap(char **map, t_gb **garbage);
 void	move_player(t_game *game, int keycode);
 void	extract_texture(t_game *game);
 void	convert_texture(t_game *game);
+void	draw_floor_col(t_game *game, int x, double raydirx, double raydiry);
+void	draw_ceil_col(t_game *game, int x, double raydirx, double raydiry);
 void	raycasting(t_game *game);
 void	pause_menu(t_game *game);
 void	update_pause_menu(t_game *game, int new_menu_mode);

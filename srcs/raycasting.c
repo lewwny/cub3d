@@ -83,6 +83,9 @@ void	raycasting(t_game *game)
 		wall_height(game);
 		set_texture(game, raydirx, raydiry);
 		draw_wall(game, x);
+		draw_floor_col(game, x, raydirx, raydiry);
+		draw_ceil_col(game, x, raydirx, raydiry);
+		game->z_buffer[x] = game->player.ray.distance;
 		x++;
 	}
 	mlx_clear_window(game->mlx_ptr, game->win_ptr);
