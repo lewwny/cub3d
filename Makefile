@@ -6,7 +6,7 @@
 #    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/10 14:37:40 by lengarci         ###   ########.fr        #
+#    Updated: 2025/07/10 17:37:53 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
 			set_sides.c set_text.c draw_text.c sprint.c server.c \
 			server_thread.c join_server.c singleton.c join_thread.c \
-			sprite_simple.c
+			sprite_simple.c world_to_screen.c utils_sprite.c join_read.c \
+			server_utils.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

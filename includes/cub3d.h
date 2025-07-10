@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 14:38:46 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:38:37 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,14 @@ void	*server_thread(void *game);
 void	join_server(t_game *game, char **argv);
 t_other	*_other(void);
 void	join_thread(t_game *game);
+bool	world_to_screen_simple(t_game *game, double world_x, double world_y,
+			int *screen_x);
+bool	is_in_fov(double relative_angle);
+double	normalize_angle(double angle);
+bool	is_position_valid(t_game *game, double x, double y);
+void	*join_read(void *arg);
+void	*read_thread_func(void *arg);
+void	send_map(int client_fd, t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
