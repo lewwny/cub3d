@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 11:43:50 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:38:46 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@
 # define EAST 3
 # define PORT 8080
 # define BUFFER_SIZE 20000
+# define SPRITE_MIN_DIST 0.2
+# define SPRITE_MAX_DIST 20.0
+# define SPRITE_MIN_RADIUS 2
+# define SPRITE_MAX_RADIUS 12
+# define SPRITE_BASE_RADIUS 15.0
+# define SPRITE_RADIUS_SCALE 3.0
 
 # ifdef __APPLE__ 
 
@@ -319,5 +325,8 @@ void	color_sides(t_game *game, int x, int y);
 void	set_texture(t_game *game, double raydirx, double raydiry);
 void	draw_wall_textured(t_game *game, int x, int y);
 void	calculate_y_tex(t_game *game);
+void	draw_other_player_sprite(t_game *game);
+void	draw_other_player_debug(t_game *game);
+void	draw_other_player_simple(t_game *game);
 
 #endif

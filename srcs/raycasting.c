@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/09 15:28:38 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:37:40 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void	raycasting(t_game *game)
 		draw_wall(game, x);
 		x++;
 	}
-	mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	draw_other_player_simple(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->buftmp, 0, 0);
 }
