@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 12:29:10 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:25:07 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	destroy_game_images(t_game *game)
 void	destroy_game_failure(t_game *game, const char *message)
 {
 	destroy_game_images(game);
+	if (game->wait)
+		mlx_destroy_image(game->mlx_ptr, game->wait);
 	if (game->menuimg.resume2)
 		mlx_destroy_image(game->mlx_ptr, game->menuimg.resume2);
 	if (game->tmp)
 		free_split(game->tmp);
-	if (game->map)
-		free_oldmap(game->map, &game->garbage);
 	if (game->sock > 2)
 	{
 		close(game->sock);
@@ -100,7 +100,7 @@ void	free_oldmap(char **map, t_gb **garbage)
 {
 	int	i;
 
-	if (!map)
+	if (!map || !*garbage || !map[0] || !garbage || !map[0][0])
 		return ;
 	i = 0;
 	while (map[i])

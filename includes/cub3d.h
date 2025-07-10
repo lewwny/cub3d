@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 17:38:37 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:56:33 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ typedef struct s_other
 	double		posx;
 	double		posy;
 	int			end;
+	int			connected;
 	pthread_t	join_reade;
 	pthread_t	join_writee;
 	pthread_t	server;
@@ -236,11 +237,13 @@ typedef struct s_game
 	void		*menu;
 	void		*menu2;
 	void		*menu3;
+	void		*wait;
 	void		*buftmp;
 	void		*pause_menu;
 	void		*resume;
 	void		*quit;
 	int			*buf;
+	int			*wait_buf;
 	int			width;
 	int			height;
 	int			menu_mode;
@@ -306,6 +309,7 @@ bool	is_position_valid(t_game *game, double x, double y);
 void	*join_read(void *arg);
 void	*read_thread_func(void *arg);
 void	send_map(int client_fd, t_game *game);
+void	cast_ray(t_game *game, double raydirx, double raydiry);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

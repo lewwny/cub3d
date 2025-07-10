@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:29:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:38:05 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:28:41 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static int	accept_client_connection(t_game *game)
 	game->server.client_fd = accept(game->server.server_fd,
 			(struct sockaddr *)&game->server.client_addr,
 			&game->server.addr_len);
+	pthread_mutex_lock(&game->server.mutex);
+	_other()->connected = 1;
+	pthread_mutex_unlock(&game->server.mutex);
 	if (game->server.client_fd < 0)
 	{
 		pthread_mutex_lock(&game->server.mutex);

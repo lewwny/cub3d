@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 14:37:40 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:57:16 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@ static void	wall_height(t_game *game)
 	ray->wall.end = ray->wall.height / 2 + HEIGHT / 2 + game->player.pitch;
 	if (ray->wall.end >= HEIGHT)
 		ray->wall.end = HEIGHT;
-}
-
-void	cast_ray(t_game *game, double raydirx, double raydiry)
-{
-	t_ray	*ray;
-
-	ray = &game->player.ray;
-	ray->ray_x = game->player.posx;
-	ray->ray_y = game->player.posy;
-	ray->mapx = (int)ray->ray_x;
-	ray->mapy = (int)ray->ray_y;
-	init_sides(game, raydirx, raydiry);
-	game->player.ray.hit = false;
-	perform_dda(game);
 }
 
 static void	draw_wall(t_game *game, int x)
@@ -61,30 +47,64 @@ static void	draw_wall(t_game *game, int x)
 	}
 }
 
-void	raycasting(t_game *game)
+static void	draw_image_pixels(t_game *game, int *img_data)
 {
-	int		x;
+	int	x;
+	int	y;
+	int	pixel;
+
+	y = 0;
+	while (y < 250)
+	{
+		x = 0;
+		while (x < 395)
+		{
+			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+			{
+				pixel = img_data[y * 395 + x];
+				if (pixel != 0x000000)
+					game->buf[(y) * WIDTH + (x)] = pixel;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+static void	raycasting_column(t_game *game, int x)
+{
 	double	camera_x;
 	double	raydirx;
 	double	raydiry;
 	double	ray_angle;
 
+	camera_x = (2 * x / (double)WIDTH) - 1;
+	ray_angle = atan2(game->player.diry, game->player.dirx)
+		+ camera_x * (game->player.fov / 2.0);
+	raydirx = cos(ray_angle);
+	raydiry = sin(ray_angle);
+	cast_ray(game, raydirx, raydiry);
+	game->player.ray.distance *= (raydirx * game->player.dirx)
+		+ (raydiry * game->player.diry);
+	wall_height(game);
+	set_texture(game, raydirx, raydiry);
+	draw_wall(game, x);
+}
+
+void	raycasting(t_game *game)
+{
+	int	x;
+
 	x = 0;
 	while (x < WIDTH)
 	{
-		camera_x = (2 * x / (double)WIDTH) - 1;
-		ray_angle = atan2(game->player.diry, game->player.dirx)
-			+ camera_x * (game->player.fov / 2.0);
-		raydirx = cos(ray_angle);
-		raydiry = sin(ray_angle);
-		cast_ray(game, raydirx, raydiry);
-		game->player.ray.distance *= (raydirx * game->player.dirx)
-			+ (raydiry * game->player.diry);
-		wall_height(game);
-		set_texture(game, raydirx, raydiry);
-		draw_wall(game, x);
+		raycasting_column(game, x);
 		x++;
 	}
 	draw_other_player_simple(game);
+	pthread_mutex_lock(&game->server.mutex);
+	if (game->host && !_other()->connected)
+		draw_image_pixels(game, game->wait_buf);
+	pthread_mutex_unlock(&game->server.mutex);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->buftmp, 0, 0);
 }

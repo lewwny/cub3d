@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 15:20:54 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:35:19 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ static void	load_menu_button_images(t_game *game)
 			"img/resume2.xpm", &tmp_width, &tmp_height);
 	if (!game->menuimg.resume2 || tmp_width != 210 || tmp_height != 70)
 		destroy_game_failure(game, "Error: Failed to load resume2 image.");
+	game->wait = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/wait.xpm", &tmp_width, &tmp_height);
+	if (!game->wait || tmp_width != 395 || tmp_height != 250)
+		destroy_game_failure(game, "Error: Failed to load wait image.");
+	game->wait_buf = (int *)mlx_get_data_addr(game->wait,
+			&game->width, &game->line_len, &game->bpp);
 }
 
 void	load_img(t_game *game)
