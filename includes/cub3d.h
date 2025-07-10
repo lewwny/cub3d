@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/09 16:18:18 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 11:43:50 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,10 +212,15 @@ typedef struct s_menu
 
 typedef struct s_other
 {
-	double	otherposx;
-	double	otherposy;
-	double	posx;
-	double	posy;
+	double		otherposx;
+	double		otherposy;
+	double		posx;
+	double		posy;
+	int			end;
+	pthread_t	join_reade;
+	pthread_t	join_writee;
+	pthread_t	server;
+	pthread_t	read_thread;
 }	t_other;
 
 typedef struct s_game
@@ -286,6 +291,7 @@ void	close_server(t_game *game);
 void	*server_thread(void *game);
 void	join_server(t_game *game, char **argv);
 t_other	*_other(void);
+void	join_thread(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

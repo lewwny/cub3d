@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/09 12:26:51 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 12:29:10 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,17 @@ void	destroy_game_failure(t_game *game, const char *message)
 		free_split(game->tmp);
 	if (game->map)
 		free_oldmap(game->map, &game->garbage);
+	if (game->sock > 2)
+	{
+		close(game->sock);
+		game->sock = 0;
+	}
 	free_linux(game);
 	if (game->mlx_ptr)
 		free(game->mlx_ptr);
 	ft_dprintf(2, "Error\n%s\n", message);
 	free_all(&game->garbage);
+	join_thread(game);
 	close_server(game);
 	exit(EXIT_FAILURE);
 }

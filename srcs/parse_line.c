@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:36:01 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 14:24:41 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/10 11:06:22 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void	parse_map(t_game *game, t_parse *parse)
 		|| !parse->f || !parse->c)
 		destroy_game_failure(game, "Incomplete parsing.");
 	map_to_finalmap(game, i);
+	if (!game->host)
+		free_oldmap(game->map, &game->garbage);
 	parse_finalmap(game);
 }

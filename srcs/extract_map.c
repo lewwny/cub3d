@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:10 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 19:02:19 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/10 12:02:05 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,28 @@ static void	truncate_newline(char **map)
 	}
 }
 
+static void	copy_map(t_game *game)
+{
+	int		i;
+	char	**new_map;
+
+	if (!game->map)
+		return ;
+	new_map = _malloc(sizeof(char *) * (ft_strarrlen(game->map) + 1),
+			&game->garbage);
+	if (!new_map)
+		malloc_error(&game->garbage);
+	i = 0;
+	while (game->map[i])
+	{
+		new_map[i] = ft_strdup(game->map[i], &game->garbage);
+		i++;
+	}
+	new_map[i] = NULL;
+	free_oldmap(game->map, &game->garbage);
+	game->map = new_map;
+}
+
 void	extract_map(char *filename, t_game *game)
 {
 	int	fd;
@@ -80,6 +102,11 @@ void	extract_map(char *filename, t_game *game)
 	}
 	game->map = read_file(fd, game);
 	if (!game->map || !game->map[0])
+	{
+		close(fd);
 		destroy_game_failure(game, "Map is empty or invalid.");
+	}
+	close(fd);
 	truncate_newline(game->map);
+	copy_map(game);
 }

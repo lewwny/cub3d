@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:09:05 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/09 16:14:37 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 12:01:09 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	create_server_socket(t_game *game)
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_fd < 0)
 		destroy_game_failure(game, "Failed to create socket");
-	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
+	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt,
+			sizeof(opt)) < 0)
 		destroy_game_failure(game, "setsockopt failed");
 	return (server_fd);
 }
@@ -50,10 +51,13 @@ void	init_server(t_game *game)
 
 void	close_server(t_game *game)
 {
-	if (!game->host)
-		return ;
-	close(game->server.client_fd);
-	close(game->server.server_fd);
-	printf("Server stopped.\n");
-	pthread_mutex_destroy(&game->server.mutex);
+	if (game->join)
+	{
+		pthread_mutex_destroy(&game->server.mutex);
+	}
+	else if (game->host)
+	{
+		printf("Server stopped.\n");
+		pthread_mutex_destroy(&game->server.mutex);
+	}
 }

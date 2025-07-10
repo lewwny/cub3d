@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/09 16:14:03 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 12:02:57 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	destroy_game(t_game *game)
 	free_linux(game);
 	free(game->mlx_ptr);
 	free_all(&game->garbage);
+	join_thread(game);
 	close_server(game);
 	exit(0);
 }
@@ -68,13 +69,12 @@ static int	close_game(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	pthread_t	server;
 
 	init_game(&game, argc, argv);
 	if (game.host)
 	{
 		init_server(&game);
-		pthread_create(&server, NULL, server_thread, &game);
+		pthread_create(&_other()->server, NULL, server_thread, &game);
 		pthread_mutex_init(&game.server.mutex, NULL);
 	}
 	load_img(&game);

@@ -6,7 +6,7 @@
 #    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/09 15:36:00 by lengarci         ###   ########.fr        #
+#    Updated: 2025/07/10 12:13:13 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			mouse_control.c pause_menu.c os_mouse.c mouse_rotate.c \
 			raycasting.c smooth_controls.c key_manage.c side_text.c \
 			set_sides.c set_text.c draw_text.c sprint.c server.c \
-			server_thread.c join_server.c singleton.c
+			server_thread.c join_server.c singleton.c join_thread.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj
@@ -81,5 +81,6 @@ fclean: clean
 	@printf "$(BLUE)✔ Full clean complete.$(RESET)\n"
 
 re: fclean all
+
 
 .PHONY: all clean fclean re

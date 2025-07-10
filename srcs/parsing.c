@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 18:20:39 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/09 14:34:51 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/10 11:36:20 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	parsing(int argc, char **argv, t_game *game)
 {
 	args_count(argc, argv, game);
 	if (game->join)
+	{
+		pthread_mutex_init(&game->server.mutex, NULL);
 		join_server(game, argv);
+	}
 	else
 	{
 		file_format(argv[1]);
