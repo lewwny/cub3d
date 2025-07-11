@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 10:40:11 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:29:40 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ void	load_img(t_game *game)
 	load_buffer_images(game);
 	load_menu_button_images(game);
 	load_guns(game);
+	load_lifebar(game);
+	load_crosshair(game);
 }

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 13:15:14 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:28:43 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,11 @@ void	raycasting(t_game *game)
 	if (game->host && !_other()->connected)
 		draw_image_pixels(game, game->wait_buf);
 	if ((game->host && _other()->connected) || game->join)
+	{
 		draw_gun(game, 680, 300, game->shoot);
+		draw_lifebar(game, 0, 0);
+		draw_crosshair(game, 634, 354, game->shoot);
+	}
 	pthread_mutex_unlock(&game->server.mutex);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->buftmp, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 12:27:38 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:30:04 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ typedef struct s_other
 	double		posy;
 	int			end;
 	int			connected;
+	int			lifebar_state;
 	pthread_t	join_reade;
 	pthread_t	join_writee;
 	pthread_t	server;
@@ -244,7 +245,13 @@ typedef struct s_game
 	void		*quit;
 	void		*gun;
 	void		*gun2;
+	void		*lifebar[5];
+	void		*crosshair1;
+	void		*crosshair2;
+	int			*buf_lifebar[5];
 	int			*bufgun;
+	int			*bufcrosshair1;
+	int			*bufcrosshair2;
 	int			*bufgun2;
 	int			*buf;
 	int			*wait_buf;
@@ -277,7 +284,6 @@ void	parsing(int argc, char **argv, t_game *game);
 void	destroy_game(t_game *game);
 void	load_img(t_game *game);
 void	extract_map(char *filename, t_game *game);
-void	print_map(char **map);
 void	init_parse(t_parse *parse);
 void	destroy_game_failure(t_game *game, const char *message);
 void	free_split(char **split);
@@ -318,6 +324,10 @@ void	send_map(int client_fd, t_game *game);
 void	cast_ray(t_game *game, double raydirx, double raydiry);
 void	draw_gun(t_game *game, int start_x, int start_y, int shoot);
 void	handle_shoot_animation(t_game *game);
+void	draw_crosshair(t_game *game, int start_x, int start_y, int shoot);
+void	draw_lifebar(t_game *game, int start_x, int start_y);
+void	load_crosshair(t_game *game);
+void	load_lifebar(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

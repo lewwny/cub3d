@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 12:20:29 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:45:00 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,12 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 	(void)x;
 	(void)y;
 	if (button == 1 && game->menu_mode == 4)
+	{
 		game->shoot = 1;
+		_other()->lifebar_state++;
+		if (_other()->lifebar_state == 5)
+			_other()->lifebar_state = 0;
+	}
 	if (button == 1 && (game->menu_mode == 2 || game->menu_mode == 7))
 		quit_game(game);
 	if (button == 1 && (game->menu_mode == 1 || game->menu_mode == 6))

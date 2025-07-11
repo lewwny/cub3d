@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shoot.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 12:26:02 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 14:50:01 by lengarci         ###   ########.fr       */
+/*   Created: 2025/07/11 15:28:31 by lengarci          #+#    #+#             */
+/*   Updated: 2025/07/11 15:28:47 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	draw_gun(t_game *game, int start_x, int start_y, int shoot)
+void	draw_lifebar(t_game *game, int start_x, int start_y)
 {
+	int	lifebar;
 	int	x;
 	int	y;
 	int	pixel;
 
+	lifebar = _other()->lifebar_state;
 	y = 0;
-	while (y < 525)
+	while (y < 91)
 	{
 		x = 0;
-		while (x < 350)
+		while (x < 400)
 		{
-			if (shoot)
-				pixel = game->bufgun2[y * 350 + x];
-			else
-				pixel = game->bufgun[y * 350 + x];
+			pixel = game->buf_lifebar[lifebar][y * 400 + x];
 			if (pixel != 0xff00ff)
 				game->buf[(start_y + y) * WIDTH + (start_x + x)] = pixel;
 			x++;
@@ -36,17 +35,26 @@ void	draw_gun(t_game *game, int start_x, int start_y, int shoot)
 	}
 }
 
-void	handle_shoot_animation(t_game *game)
+void	draw_crosshair(t_game *game, int start_x, int start_y, int shoot)
 {
-	if (game->menu_mode != 4)
-		return ;
-	if (game->shoot)
+	int	x;
+	int	y;
+	int	pixel;
+
+	y = 0;
+	while (y < 13)
 	{
-		game->shoot_timer += game->delta_time;
-		if (game->shoot_timer > 0.1)
+		x = 0;
+		while (x < 13)
 		{
-			game->shoot = 0;
-			game->shoot_timer = 0;
+			if (shoot)
+				pixel = game->bufcrosshair2[y * 13 + x];
+			else
+				pixel = game->bufcrosshair1[y * 13 + x];
+			if (pixel != 0xff00ff)
+				game->buf[(start_y + y) * WIDTH + (start_x + x)] = pixel;
+			x++;
 		}
+		y++;
 	}
 }

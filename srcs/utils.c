@@ -6,30 +6,13 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 10:37:51 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:20:20 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	print_map(char **map)
-{
-	int	i;
-
-	if (!map)
-	{
-		ft_dprintf(2, "Error: Map is NULL.\n");
-		return ;
-	}
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
-
-void	destroy_game_images(t_game *game)
+static void	destroy_game_images(t_game *game)
 {
 	if (game->mlx_ptr && game->win_ptr)
 		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
@@ -57,15 +40,36 @@ void	destroy_game_images(t_game *game)
 		mlx_destroy_image(game->mlx_ptr, game->menuimg.quit2);
 }
 
-void	destroy_game_failure(t_game *game, const char *message)
+static void	destroy_game_images2(t_game *game)
 {
-	destroy_game_images(game);
+	if (game->lifebar[0])
+		mlx_destroy_image(game->mlx_ptr, game->lifebar[0]);
+	if (game->lifebar[1])
+		mlx_destroy_image(game->mlx_ptr, game->lifebar[1]);
+	if (game->lifebar[2])
+		mlx_destroy_image(game->mlx_ptr, game->lifebar[2]);
+	if (game->lifebar[3])
+		mlx_destroy_image(game->mlx_ptr, game->lifebar[3]);
+	if (game->lifebar[4])
+		mlx_destroy_image(game->mlx_ptr, game->lifebar[4]);
 	if (game->wait)
 		mlx_destroy_image(game->mlx_ptr, game->wait);
 	if (game->gun)
 		mlx_destroy_image(game->mlx_ptr, game->gun);
 	if (game->menuimg.resume2)
 		mlx_destroy_image(game->mlx_ptr, game->menuimg.resume2);
+	if (game->gun2)
+		mlx_destroy_image(game->mlx_ptr, game->gun2);
+	if (game->crosshair1)
+		mlx_destroy_image(game->mlx_ptr, game->crosshair1);
+	if (game->crosshair2)
+		mlx_destroy_image(game->mlx_ptr, game->crosshair2);
+}
+
+void	destroy_game_failure(t_game *game, const char *message)
+{
+	destroy_game_images(game);
+	destroy_game_images2(game);
 	if (game->tmp)
 		free_split(game->tmp);
 	if (game->sock > 2)

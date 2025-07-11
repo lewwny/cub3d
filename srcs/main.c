@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 10:37:36 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:35:12 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,6 @@ static void	init_game(t_game *game, int argc, char **argv)
 	}
 	game->width = WIDTH;
 	game->height = HEIGHT;
-}
-
-void	destroy_game(t_game *game)
-{
-	mouse_show(game);
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	mlx_destroy_image(game->mlx_ptr, game->menu);
-	mlx_destroy_image(game->mlx_ptr, game->menu2);
-	mlx_destroy_image(game->mlx_ptr, game->menu3);
-	mlx_destroy_image(game->mlx_ptr, game->texture.no);
-	mlx_destroy_image(game->mlx_ptr, game->texture.so);
-	mlx_destroy_image(game->mlx_ptr, game->texture.we);
-	mlx_destroy_image(game->mlx_ptr, game->texture.ea);
-	mlx_destroy_image(game->mlx_ptr, game->buftmp);
-	mlx_destroy_image(game->mlx_ptr, game->resume);
-	mlx_destroy_image(game->mlx_ptr, game->quit);
-	mlx_destroy_image(game->mlx_ptr, game->menuimg.quit2);
-	mlx_destroy_image(game->mlx_ptr, game->menuimg.resume2);
-	mlx_destroy_image(game->mlx_ptr, game->wait);
-	mlx_destroy_image(game->mlx_ptr, game->gun);
-	free_linux(game);
-	free(game->mlx_ptr);
-	free_all(&game->garbage);
-	join_thread(game);
-	close_server(game);
-	exit(0);
 }
 
 static int	close_game(t_game *game)
