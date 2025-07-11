@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 15:28:43 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:20:31 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static void	draw_image_pixels(t_game *game, int *img_data)
 	int	pixel;
 
 	y = 0;
-	while (y < 250)
+	while (y < 233)
 	{
 		x = 0;
-		while (x < 395)
+		while (x < 350)
 		{
 			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 			{
-				pixel = img_data[y * 395 + x];
-				if (pixel != 0x000000)
+				pixel = img_data[y * 350 + x];
+				if (pixel != 0xff00ff)
 					game->buf[(y) * WIDTH + (x)] = pixel;
 			}
 			x++;

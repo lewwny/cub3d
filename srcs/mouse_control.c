@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:19:19 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 14:45:00 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:07:32 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,21 @@ void	update_menu_mode(t_game *game, int new_menu_mode)
 
 int	handle_game_menu_mouse_move(int x, int y, t_game *game)
 {
+	int	ret;
 	int	new_menu_mode;
 
-	new_menu_mode = 0;
-	if (game->menu_mode >= 5)
-	{
-		if (x >= 540 && x <= 750 && y >= 264 && y <= 334)
-			new_menu_mode = 6;
-		else if (x >= 540 && x <= 750 && y >= 385 && y <= 455)
-			new_menu_mode = 7;
-		else
-			new_menu_mode = 5;
-		update_pause_menu(game, new_menu_mode);
+	ret = handle_death_pause_menu_mouse_move(x, y, game);
+	if (ret == 0)
 		return (0);
+	if (game->menu_mode <= 3)
+	{
+		new_menu_mode = 0;
+		if (x >= 404 && x <= 957 && y >= 144 && y <= 324)
+			new_menu_mode = 1;
+		else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
+			new_menu_mode = 2;
+		update_menu_mode(game, new_menu_mode);
 	}
-	if (x >= 404 && x <= 957 && y >= 144 && y <= 324)
-		new_menu_mode = 1;
-	else if (x >= 404 && x <= 957 && y >= 486 && y <= 657)
-		new_menu_mode = 2;
-	update_menu_mode(game, new_menu_mode);
 	return (0);
 }
 
@@ -90,14 +86,16 @@ int	on_mouse_click(int button, int x, int y, t_game *game)
 	if (button == 1 && game->menu_mode == 4)
 	{
 		game->shoot = 1;
-		_other()->lifebar_state++;
-		if (_other()->lifebar_state == 5)
-			_other()->lifebar_state = 0;
+		is_shot(game);
 	}
-	if (button == 1 && (game->menu_mode == 2 || game->menu_mode == 7))
+	if (button == 1 && (game->menu_mode == 2 || game->menu_mode == 7
+			|| game->menu_mode == 12))
 		quit_game(game);
-	if (button == 1 && (game->menu_mode == 1 || game->menu_mode == 6))
+	if (button == 1 && (game->menu_mode == 1 || game->menu_mode == 6
+			|| game->menu_mode == 11))
 	{
+		if (game->menu_mode == 11)
+			respawn_player(game);
 		mlx_clear_window(game->mlx_ptr, game->win_ptr);
 		game->menu_mode = 4;
 		raycasting(game);

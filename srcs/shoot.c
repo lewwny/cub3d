@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 12:26:02 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 14:50:01 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:19:28 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,17 @@ void	handle_shoot_animation(t_game *game)
 			game->shoot_timer = 0;
 		}
 	}
+}
+
+void	is_shot(t_game *game)
+{
+	pthread_mutex_lock(&game->server.mutex);
+	_other()->lifebar_state++;
+	if (_other()->lifebar_state == 4)
+	{
+		_other()->lifebar_state = 0;
+		game->menu_mode = 10;
+		death_menu(game);
+	}
+	pthread_mutex_unlock(&game->server.mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:34:01 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 09:18:18 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:21:21 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ static int	read_position_from_server(t_game *game, char *buffer)
 	if (bytes_received <= 0)
 		return (-1);
 	buffer[bytes_received] = '\0';
+	if (ft_strcmp(buffer, "END") == 0)
+	{
+		pthread_mutex_lock(&game->server.mutex);
+		_other()->end2 = 1;
+		pthread_mutex_unlock(&game->server.mutex);
+		return (-1);
+	}
 	return (bytes_received);
 }
 
@@ -49,6 +56,16 @@ static void	update_other_player_position(t_game *game, char *buffer)
 	pthread_mutex_unlock(&game->server.mutex);
 }
 
+static int	join_read_should_end(t_game *game)
+{
+	int	should_end;
+
+	pthread_mutex_lock(&game->server.mutex);
+	should_end = (_other()->end || _other()->end2);
+	pthread_mutex_unlock(&game->server.mutex);
+	return (should_end);
+}
+
 void	*join_read(void *arg)
 {
 	t_game			*game;
@@ -58,18 +75,19 @@ void	*join_read(void *arg)
 	game = (t_game *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&game->server.mutex);
-		if (_other()->end)
-		{
-			pthread_mutex_unlock(&game->server.mutex);
+		if (join_read_should_end(game))
 			break ;
-		}
-		pthread_mutex_unlock(&game->server.mutex);
 		ret = read_position_from_server(game, buffer);
 		if (ret == 0)
 			continue ;
 		if (ret < 0)
+		{
+			pthread_mutex_lock(&game->server.mutex);
+			if (!_other()->end2)
+				_other()->end2 = 1;
+			pthread_mutex_unlock(&game->server.mutex);
 			break ;
+		}
 		update_other_player_position(game, buffer);
 	}
 	close(game->sock);

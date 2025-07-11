@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:29:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 18:28:41 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:04:08 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@ static void	handle_client(int client_fd, t_game *game, double *old_posx,
 		double *old_posy)
 {
 	char	buffer[BUFFER_SIZE];
+	double	current_x;
+	double	current_y;
 
 	ft_bzero(buffer, BUFFER_SIZE);
 	pthread_mutex_lock(&game->server.mutex);
-	if (*old_posx != _other()->posx || *old_posy != _other()->posy)
-	{
-		snprintf(buffer, BUFFER_SIZE, "%.2f|%.2f",
-			game->player.posx, game->player.posy);
-		write(client_fd, buffer, ft_strlen(buffer));
-		*old_posx = _other()->posx;
-		*old_posy = _other()->posy;
-	}
+	current_x = _other()->posx;
+	current_y = _other()->posy;
 	pthread_mutex_unlock(&game->server.mutex);
+	if (*old_posx != current_x || *old_posy != current_y)
+	{
+		snprintf(buffer, BUFFER_SIZE, "%.2f|%.2f", current_x, current_y);
+		write(client_fd, buffer, ft_strlen(buffer));
+		*old_posx = current_x;
+		*old_posy = current_y;
+	}
 }
 
 static int	wait_for_client_connection(t_game *game)
@@ -86,7 +89,7 @@ static void	server_main_loop(t_game *game, double *old_posx, double *old_posy)
 	while (1)
 	{
 		pthread_mutex_lock(&game->server.mutex);
-		if (_other()->end)
+		if (_other()->end || _other()->end2)
 		{
 			pthread_mutex_unlock(&game->server.mutex);
 			break ;

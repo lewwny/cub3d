@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:29:30 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 15:29:45 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:01:59 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,48 @@ void	load_crosshair(t_game *game)
 		destroy_game_failure(game, "Error: Failed to load crosshair2 image.");
 	game->bufcrosshair2 = (int *)mlx_get_data_addr(game->crosshair2,
 			&game->width, &game->line_len, &game->bpp);
+}
+
+static void	load_quitdeath_images(t_game *game)
+{
+	int	tmp_width;
+	int	tmp_height;
+
+	game->quitdeath1 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/quitdeath1.xpm", &tmp_width, &tmp_height);
+	if (!game->quitdeath1 || tmp_width != 300 || tmp_height != 300)
+		destroy_game_failure(game, "Error: Failed to load quitdeath1 image.");
+	game->bufquitdeath1 = (int *)mlx_get_data_addr(game->quitdeath1,
+			&game->width, &game->line_len, &game->bpp);
+	game->quitdeath2 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/quitdeath2.xpm", &tmp_width, &tmp_height);
+	if (!game->quitdeath2 || tmp_width != 300 || tmp_height != 300)
+		destroy_game_failure(game, "Error: Failed to load quitdeath2 image.");
+	game->bufquitdeath2 = (int *)mlx_get_data_addr(game->quitdeath2,
+			&game->width, &game->line_len, &game->bpp);
+}
+
+static void	load_respawn_images(t_game *game)
+{
+	int	tmp_width;
+	int	tmp_height;
+
+	game->respawn1 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/respawn1.xpm", &tmp_width, &tmp_height);
+	if (!game->respawn1 || tmp_width != 300 || tmp_height != 300)
+		destroy_game_failure(game, "Error: Failed to load respawn1 image.");
+	game->bufrespawn1 = (int *)mlx_get_data_addr(game->respawn1,
+			&game->width, &game->line_len, &game->bpp);
+	game->respawn2 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/respawn2.xpm", &tmp_width, &tmp_height);
+	if (!game->respawn2 || tmp_width != 300 || tmp_height != 300)
+		destroy_game_failure(game, "Error: Failed to load respawn2 image.");
+	game->bufrespawn2 = (int *)mlx_get_data_addr(game->respawn2,
+			&game->width, &game->line_len, &game->bpp);
+}
+
+void	load_death_menu(t_game *game)
+{
+	load_respawn_images(game);
+	load_quitdeath_images(game);
 }

@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 15:30:04 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:07:48 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ typedef struct s_other
 	int			end;
 	int			connected;
 	int			lifebar_state;
+	int			end2;
 	pthread_t	join_reade;
 	pthread_t	join_writee;
 	pthread_t	server;
@@ -248,12 +249,20 @@ typedef struct s_game
 	void		*lifebar[5];
 	void		*crosshair1;
 	void		*crosshair2;
+	void		*respawn1;
+	void		*respawn2;
+	void		*quitdeath1;
+	void		*quitdeath2;
 	int			*buf_lifebar[5];
 	int			*bufgun;
 	int			*bufcrosshair1;
 	int			*bufcrosshair2;
 	int			*bufgun2;
 	int			*buf;
+	int			*bufrespawn1;
+	int			*bufrespawn2;
+	int			*bufquitdeath1;
+	int			*bufquitdeath2;
 	int			*wait_buf;
 	int			width;
 	int			height;
@@ -267,6 +276,8 @@ typedef struct s_game
 	int			shoot;
 	double		delta_time;
 	double		shoot_timer;
+	double		spawnx;
+	double		spawny;
 	char		**map;
 	char		**tmp;
 	char		**final_map;
@@ -328,6 +339,16 @@ void	draw_crosshair(t_game *game, int start_x, int start_y, int shoot);
 void	draw_lifebar(t_game *game, int start_x, int start_y);
 void	load_crosshair(t_game *game);
 void	load_lifebar(t_game *game);
+void	is_shot(t_game *game);
+void	death_menu(t_game *game);
+void	connect_to_server(t_game *game, char **argv);
+void	load_death_menu(t_game *game);
+void	draw_button(t_game *game, int start_x, int start_y, int *buf);
+void	draw_buttons(t_game *game);
+void	red_filter(t_game *game);
+int		handle_death_pause_menu_mouse_move(int x, int y, t_game *game);
+void	update_pause_menu(t_game *game, int new_menu_mode);
+void	respawn_player(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

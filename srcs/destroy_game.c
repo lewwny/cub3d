@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:32:38 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 15:33:20 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:35:53 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,22 @@ static void	destroy_images(t_game *game)
 
 void	destroy_game(t_game *game)
 {
+	int	should_send_end;
+
+	should_send_end = 0;
+	pthread_mutex_lock(&game->server.mutex);
+	should_send_end = !_other()->end2;
+	pthread_mutex_unlock(&game->server.mutex);
+	if (game->join && should_send_end)
+		write(game->sock, "END", 3);
+	if (game->host && should_send_end)
+		write(game->server.client_fd, "END", 3);
 	mouse_show(game);
 	destroy_images(game);
+	mlx_destroy_image(game->mlx_ptr, game->respawn1);
+	mlx_destroy_image(game->mlx_ptr, game->respawn2);
+	mlx_destroy_image(game->mlx_ptr, game->quitdeath1);
+	mlx_destroy_image(game->mlx_ptr, game->quitdeath2);
 	free_linux(game);
 	free(game->mlx_ptr);
 	free_all(&game->garbage);

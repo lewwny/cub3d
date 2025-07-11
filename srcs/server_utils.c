@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:37:29 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 09:16:55 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:20:21 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	read_from_client(int client_fd, char *buffer)
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 100000;
 	if (select(client_fd + 1, &readfds, NULL, NULL, &timeout) <= 0)
-		return (-1);
+		return (0);
 	if (!FD_ISSET(client_fd, &readfds))
-		return (-1);
+		return (0);
 	bytes_received = read(client_fd, buffer, BUFFER_SIZE - 1);
 	if (bytes_received <= 0)
 		return (-1);
@@ -53,26 +53,53 @@ static void	update_player_position(t_game *game, char *buffer)
 	free_split(pos);
 }
 
+static int	handle_client_read(t_game *game, char *buffer)
+{
+	int	bytes_read;
+
+	bytes_read = read_from_client(game->server.client_fd, buffer);
+	if (bytes_read == 0)
+		return (0);
+	if (bytes_read < 0)
+	{
+		pthread_mutex_lock(&game->server.mutex);
+		if (!_other()->end2)
+			_other()->end2 = 1;
+		pthread_mutex_unlock(&game->server.mutex);
+		return (-1);
+	}
+	if (ft_strcmp(buffer, "END") == 0)
+	{
+		pthread_mutex_lock(&game->server.mutex);
+		_other()->end2 = 1;
+		pthread_mutex_unlock(&game->server.mutex);
+		return (-1);
+	}
+	update_player_position(game, buffer);
+	return (1);
+}
+
 void	*read_thread_func(void *arg)
 {
 	t_game	*game;
 	char	buffer[BUFFER_SIZE];
-	int		bytes_read;
+	int		ret;
 
 	game = (t_game *)arg;
 	while (1)
 	{
 		pthread_mutex_lock(&game->server.mutex);
-		if (_other()->end)
+		if (_other()->end || _other()->end2)
 		{
 			pthread_mutex_unlock(&game->server.mutex);
 			break ;
 		}
 		pthread_mutex_unlock(&game->server.mutex);
-		bytes_read = read_from_client(game->server.client_fd, buffer);
-		if (bytes_read <= 0)
+		ret = handle_client_read(game, buffer);
+		if (ret == 0)
 			continue ;
-		update_player_position(game, buffer);
+		if (ret < 0)
+			break ;
 	}
 	return (NULL);
 }

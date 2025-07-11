@@ -6,7 +6,7 @@
 #    By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 19:14:45 by lenygarcia        #+#    #+#              #
-#    Updated: 2025/07/11 15:34:38 by lengarci         ###   ########.fr        #
+#    Updated: 2025/07/11 19:02:55 by lengarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FILES		= main.c parsing.c key_hook.c load_img.c extract_map.c \
 			server_thread.c join_server.c singleton.c join_thread.c \
 			sprite_simple.c world_to_screen.c utils_sprite.c join_read.c \
 			server_utils.c raycasting_utils.c shoot.c load_img2.c \
-			draw.c destroy_game.c
+			draw.c destroy_game.c death_menu.c connect.c failure.c
 SRC_DIR		= srcs
 SRCS		= $(addprefix $(SRC_DIR)/, $(FILES))
 OBJ_DIR		= .obj

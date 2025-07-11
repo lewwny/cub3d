@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:13:52 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 09:18:32 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:23:04 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,33 @@ static int	send_position_if_changed(t_game *game, double *last_posx,
 {
 	char	buffer[64];
 	ssize_t	bytes_sent;
+	double	current_x;
+	double	current_y;
 
-	if (_other()->posx != *last_posx || _other()->posy != *last_posy)
+	pthread_mutex_lock(&game->server.mutex);
+	current_x = _other()->posx;
+	current_y = _other()->posy;
+	pthread_mutex_unlock(&game->server.mutex);
+	if (current_x != *last_posx || current_y != *last_posy)
 	{
-		snprintf(buffer, sizeof(buffer), "%.6f|%.6f",
-			_other()->posx, _other()->posy);
+		snprintf(buffer, sizeof(buffer), "%.6f|%.6f", current_x, current_y);
 		bytes_sent = write(game->sock, buffer, strlen(buffer));
 		if (bytes_sent < 0)
 			return (-1);
-		*last_posx = _other()->posx;
-		*last_posy = _other()->posy;
+		*last_posx = current_x;
+		*last_posy = current_y;
 	}
 	return (0);
+}
+
+static int	should_end(t_game *game)
+{
+	int	end_flag;
+
+	pthread_mutex_lock(&game->server.mutex);
+	end_flag = (_other()->end || _other()->end2);
+	pthread_mutex_unlock(&game->server.mutex);
+	return (end_flag);
 }
 
 static void	*join_write(void *arg)
@@ -42,43 +57,20 @@ static void	*join_write(void *arg)
 	last_posy = -1.0;
 	while (1)
 	{
-		pthread_mutex_lock(&game->server.mutex);
+		if (should_end(game))
+			break ;
 		if (send_position_if_changed(game, &last_posx, &last_posy) < 0)
 		{
+			pthread_mutex_lock(&game->server.mutex);
+			if (!_other()->end2)
+				_other()->end2 = 1;
 			pthread_mutex_unlock(&game->server.mutex);
 			break ;
 		}
-		if (_other()->end)
-		{
-			pthread_mutex_unlock(&game->server.mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&game->server.mutex);
 		usleep(10000);
 	}
 	close(game->sock);
 	return (NULL);
-}
-
-static void	connect_to_server(t_game *game, char **argv)
-{
-	struct sockaddr_in	server_addr;
-
-	game->sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (game->sock < 0)
-		destroy_game_failure(game, "Failed to create socket");
-	ft_bzero(&server_addr, sizeof(server_addr));
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(ft_atoi(argv[3]));
-	printf("Connecting to server %s:%s\n", argv[2], argv[3]);
-	if (ft_strcmp(argv[2], "localhost") == 0)
-		server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	else if (inet_pton(AF_INET, argv[2], &server_addr.sin_addr) <= 0)
-		destroy_game_failure(game, "Invalid address/ Address not supported");
-	if (connect(game->sock, (struct sockaddr *)&server_addr,
-			sizeof(server_addr)) < 0)
-		destroy_game_failure(game, "Connection failed");
-	printf("Connected to server %s:%s\n", argv[2], argv[3]);
 }
 
 static void	receive_map_and_start_threads(t_game *game)

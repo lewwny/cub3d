@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pause_menu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lenygarcia <lenygarcia@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:42:11 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 18:28:20 by lenygarcia       ###   ########.fr       */
+/*   Updated: 2025/07/11 16:39:43 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	pause_menu(t_game *game)
 {
 	if (game->menu_mode < 4)
 		destroy_game(game);
-	if (game->menu_mode >= 5)
+	if (game->menu_mode >= 5 && game->menu_mode <= 9)
 	{
 		game->menu_mode = 4;
 		mouse_hide(game);

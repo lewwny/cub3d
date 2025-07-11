@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 15:35:12 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:57:58 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	init_game(t_game *game, int argc, char **argv)
 	init_keys(&game->keys);
 	parsing(argc, argv, game);
 	init_player(game);
+	game->spawnx = game->player.posx;
+	game->spawny = game->player.posy;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 	{

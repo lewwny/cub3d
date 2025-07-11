@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 15:29:40 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:00:50 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	load_menu_button_images(t_game *game)
 		destroy_game_failure(game, "Error: Failed to load resume2 image.");
 	game->wait = mlx_xpm_file_to_image(game->mlx_ptr,
 			"img/wait.xpm", &tmp_width, &tmp_height);
-	if (!game->wait || tmp_width != 395 || tmp_height != 250)
+	if (!game->wait || tmp_width != 350 || tmp_height != 233)
 		destroy_game_failure(game, "Error: Failed to load wait image.");
 	game->wait_buf = (int *)mlx_get_data_addr(game->wait,
 			&game->width, &game->line_len, &game->bpp);
@@ -98,4 +98,5 @@ void	load_img(t_game *game)
 	load_guns(game);
 	load_lifebar(game);
 	load_crosshair(game);
+	load_death_menu(game);
 }
