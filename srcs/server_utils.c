@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:37:29 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:38:23 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 09:16:55 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,24 @@ static void	update_player_position(t_game *game, char *buffer)
 
 	other = _other();
 	pos = ft_split(buffer, '|');
-	if (!pos || !pos[0])
-		destroy_game_failure(game, "Failed to parse position data from client");
+	if (!pos || !pos[0] || !pos[1])
+	{
+		if (pos)
+			free_split(pos);
+		return ;
+	}
 	pthread_mutex_lock(&game->server.mutex);
 	other->otherposx = strtod(pos[0], NULL);
 	other->otherposy = strtod(pos[1], NULL);
-	free_split(pos);
-	printf("Player position updated: (%.2f, %.2f)\n",
-		other->otherposx, other->otherposy);
 	pthread_mutex_unlock(&game->server.mutex);
+	free_split(pos);
 }
 
 void	*read_thread_func(void *arg)
 {
 	t_game	*game;
 	char	buffer[BUFFER_SIZE];
+	int		bytes_read;
 
 	game = (t_game *)arg;
 	while (1)
@@ -66,8 +69,9 @@ void	*read_thread_func(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&game->server.mutex);
-		if (read_from_client(game->server.client_fd, buffer) <= 0)
-			break ;
+		bytes_read = read_from_client(game->server.client_fd, buffer);
+		if (bytes_read <= 0)
+			continue ;
 		update_player_position(game, buffer);
 	}
 	return (NULL);

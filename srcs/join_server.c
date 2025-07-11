@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:13:52 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:33:54 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 09:18:32 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	receive_map_and_start_threads(t_game *game)
 	game->map = ft_split(buffer, '|');
 	if (!game->map || !game->map[0])
 		destroy_game_failure(game, "Failed to parse map from server");
-	printf("Map received successfully! Starting position thread...\n");
 	pthread_create(&_other()->join_reade, NULL, join_read, game);
 	pthread_create(&_other()->join_writee, NULL, join_write, game);
 }

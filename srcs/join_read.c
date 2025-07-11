@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:34:01 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/10 17:34:09 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 09:18:18 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static void	update_other_player_position(t_game *game, char *buffer)
 	other->otherposx = strtod(pos[0], NULL);
 	other->otherposy = strtod(pos[1], NULL);
 	free_split(pos);
-	printf("Player position updated: (%.2f, %.2f)\n",
-		other->otherposx, other->otherposy);
 	pthread_mutex_unlock(&game->server.mutex);
 }
 
