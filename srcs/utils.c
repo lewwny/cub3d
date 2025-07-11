@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:38:47 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 18:25:07 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 10:37:51 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	destroy_game_failure(t_game *game, const char *message)
 	destroy_game_images(game);
 	if (game->wait)
 		mlx_destroy_image(game->mlx_ptr, game->wait);
+	if (game->gun)
+		mlx_destroy_image(game->mlx_ptr, game->gun);
 	if (game->menuimg.resume2)
 		mlx_destroy_image(game->mlx_ptr, game->menuimg.resume2);
 	if (game->tmp)

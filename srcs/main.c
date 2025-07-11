@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 07:54:20 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 10:37:36 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx_ptr, game->menuimg.quit2);
 	mlx_destroy_image(game->mlx_ptr, game->menuimg.resume2);
 	mlx_destroy_image(game->mlx_ptr, game->wait);
+	mlx_destroy_image(game->mlx_ptr, game->gun);
 	free_linux(game);
 	free(game->mlx_ptr);
 	free_all(&game->garbage);

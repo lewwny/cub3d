@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/11 09:14:47 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 12:27:07 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	game_loop(t_game *game)
 	handle_movement(game);
 	handle_rotation(game);
 	handle_sprint(game);
+	handle_shoot_animation(game);
 	game->delta_time = get_delta_time();
 	fov_sprint(game);
 	if (game->menu_mode == 4)

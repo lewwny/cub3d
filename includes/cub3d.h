@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/11 07:54:19 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 12:27:38 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,10 @@ typedef struct s_game
 	void		*pause_menu;
 	void		*resume;
 	void		*quit;
+	void		*gun;
+	void		*gun2;
+	int			*bufgun;
+	int			*bufgun2;
 	int			*buf;
 	int			*wait_buf;
 	int			width;
@@ -253,7 +257,9 @@ typedef struct s_game
 	int			host;
 	int			join;
 	int			sock;
+	int			shoot;
 	double		delta_time;
+	double		shoot_timer;
 	char		**map;
 	char		**tmp;
 	char		**final_map;
@@ -310,6 +316,8 @@ void	*join_read(void *arg);
 void	*read_thread_func(void *arg);
 void	send_map(int client_fd, t_game *game);
 void	cast_ray(t_game *game, double raydirx, double raydiry);
+void	draw_gun(t_game *game, int start_x, int start_y, int shoot);
+void	handle_shoot_animation(t_game *game);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);

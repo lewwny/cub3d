@@ -6,7 +6,7 @@
 /*   By: lengarci <lengarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:30:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/10 18:35:19 by lengarci         ###   ########.fr       */
+/*   Updated: 2025/07/11 10:40:11 by lengarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,30 @@ static void	load_menu_button_images(t_game *game)
 			&game->width, &game->line_len, &game->bpp);
 }
 
+static void	load_guns(t_game *game)
+{
+	int	tmp_width;
+	int	tmp_height;
+
+	game->gun = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/gun.xpm", &tmp_width, &tmp_height);
+	if (!game->gun || tmp_width != 350 || tmp_height != 525)
+		destroy_game_failure(game, "Error: Failed to load gun image.");
+	game->bufgun = (int *)mlx_get_data_addr(game->gun,
+			&game->width, &game->line_len, &game->bpp);
+	game->gun2 = mlx_xpm_file_to_image(game->mlx_ptr,
+			"img/gun2.xpm", &tmp_width, &tmp_height);
+	if (!game->gun2 || tmp_width != 350 || tmp_height != 525)
+		destroy_game_failure(game, "Error: Failed to load gun2 image.");
+	game->bufgun2 = (int *)mlx_get_data_addr(game->gun2,
+			&game->width, &game->line_len, &game->bpp);
+}
+
 void	load_img(t_game *game)
 {
 	load_menu_images(game);
 	extract_texture(game);
 	load_buffer_images(game);
 	load_menu_button_images(game);
+	load_guns(game);
 }
