@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 09:25:18 by macauchy          #+#    #+#             */
-/*   Updated: 2025/07/04 13:38:34 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:25:21 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,13 @@ void	perform_dda(t_game *game)
 		if (game->player.ray.mapx < 0 || game->player.ray.mapx >= game->width
 			|| game->player.ray.mapy < 0
 			|| game->player.ray.mapy >= game->height)
+		{
 			game->player.ray.hit = true;
-		if (game->final_map[game->player.ray.mapy]
-			[game->player.ray.mapx] == '1')
+		}
+		else if (game->final_map[game->player.ray.mapy][game->player.ray.mapx] == '1')
+		{
 			game->player.ray.hit = true;
+		}
 	}
 	set_sides(game);
 }

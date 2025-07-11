@@ -1,76 +1,74 @@
 #include "../includes/cub3d.h"
 
-static unsigned int	get_fc_text_color(t_game *game, int is_floor)
+static double	calc_row_dist(int y, double pitch, int is_floor)
 {
-	int			cell_x;
-	int			cell_y;
-	int			tx;
-	int			ty;
-	t_tex_data	*tex;
-
-	cell_x = (int)game->player.ray.floor.floor_x;
-	cell_y = (int)game->player.ray.floor.floor_y;
-	if (cell_x < 0 || cell_y < 0 || cell_x >= game->width || cell_y >= game->height)
-		return (0);
-	game->rot.rotate = (cell_x + cell_y) % 2;
-	game->rot.frac_x = game->player.ray.floor.floor_x - cell_x;
-	game->rot.frac_y = game->player.ray.floor.floor_y - cell_y;
-	//tx = (int)(TEX_WIDTH * (game->player.ray.floor.floor_x - cell_x))
-	//		& (TEX_WIDTH - 1);
-	//ty = (int)(TEX_HEIGHT * (game->player.ray.floor.floor_y - cell_y))
-	//		& (TEX_HEIGHT - 1);
-	if (game->rot.rotate)
-	{
-		tx = (int)(TEX_WIDTH * (1.0 - game->rot.frac_y))	& (TEX_WIDTH - 1);
-		ty = (int)(TEX_HEIGHT * game->rot.frac_x)			& (TEX_HEIGHT - 1);
-	}
+	double denominator;
+	if (is_floor)
+		denominator = y - (HEIGHT / 2.0 + pitch);
 	else
-	{
-		tx = (int)(TEX_WIDTH * game->rot.frac_x)			& (TEX_WIDTH - 1);
-		ty = (int)(TEX_HEIGHT * game->rot.frac_y)			& (TEX_HEIGHT - 1);
-	}
-	tex = &game->texture.tex_ptr[is_floor];
-	return (tex->data[ty * tex->width + tx]);
+		denominator = (HEIGHT / 2.0 + pitch) - y;
+	if (fabs(denominator) < 0.001)
+		return -1.0;
+	return HEIGHT / (2.0 * denominator);
 }
 
-void	draw_ceil_col(t_game *game, int x, double raydirx, double raydiry)
+static void	update_floor_coords(t_game *game, double row_dist, double raydirx, double raydiry)
 {
-	int				y;
-	double			row_dist;
-	t_ray			*ray;
-	unsigned int	color;
+	game->player.ray.floor.floor_x = game->player.posx + row_dist * raydirx;
+	game->player.ray.floor.floor_y = game->player.posy + row_dist * raydiry;
+}
 
-	ray = &game->player.ray;
-	y = 0;
-	while (y < ray->wall.start)
+static unsigned int	get_fc_color(t_game *game, double row_dist, int is_floor, double raydirx, double raydiry)
+{
+	unsigned int	color;
+	int				tex_index;
+
+	update_floor_coords(game, row_dist, raydirx, raydiry);
+	if (is_floor)
+		tex_index = 1;
+	else
+		tex_index = 2;
+	color = get_fc_text_color(game, tex_index);
+	return (apply_shading(color, row_dist));
+}
+
+static void	draw_fc_row(t_game *game, int x, int start, int end, int is_floor, double raydirx, double raydiry)
+{
+	int		y;
+	double	row_dist;
+
+	if (start < 0)
+		y = 0;
+	else
+		y = start;
+	while (y < end && y < HEIGHT)
 	{
-		row_dist = HEIGHT / (2.0 * ((HEIGHT / 2.0 + game->player.pitch) - y));
-		ray->floor.floor_x = game->player.posx + row_dist * raydirx;
-		ray->floor.floor_y = game->player.posy + row_dist * raydiry;
-		color = get_fc_text_color(game, 2);
-		color = apply_shading(color, row_dist);
-		game->buf[y * WIDTH + x] = color;
+		row_dist = calc_row_dist(y, game->player.pitch, is_floor);
+		if (row_dist < 0 || row_dist > MAX_DIST)
+		{
+			y++;
+			continue;
+		}
+		game->buf[y * WIDTH + x] = get_fc_color(game, row_dist, is_floor, raydirx, raydiry);
 		y++;
 	}
 }
 
-void	draw_floor_col(t_game *game, int x, double raydirx, double raydiry)
+void	draw_floor_ceil_col(t_game *game, int x, double raydirx, double raydiry)
 {
-	int				y;
-	t_ray			*ray;
-	double			row_dist;
-	unsigned int	color;
+	int	wall_start;
+	int	wall_end;
 
-	ray = &game->player.ray;
-	y = ray->wall.end;
-	while (y < HEIGHT)
-	{
-		row_dist = HEIGHT / (2.0 * (y - (HEIGHT / 2.0 + game->player.pitch)));
-		ray->floor.floor_x = game->player.posx + row_dist * raydirx;
-		ray->floor.floor_y = game->player.posy + row_dist * raydiry;
-		color = get_fc_text_color(game, 1);
-		color = apply_shading(color, row_dist);
-		game->buf[y * WIDTH + x] = color;
-		y++;
-	}
+	if (game->player.ray.wall.start < 0)
+		wall_start = 0;
+	else
+		wall_start = game->player.ray.wall.start;
+	if (game->player.ray.wall.end >= HEIGHT)
+		wall_end = HEIGHT - 1;
+	else
+		wall_end = game->player.ray.wall.end;
+	if (x < 0 || x >= WIDTH)
+		return;
+	draw_fc_row(game, x, 0, wall_start, 0, raydirx, raydiry);
+	draw_fc_row(game, x, wall_end, HEIGHT, 1, raydirx, raydiry);
 }

@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:22:48 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 18:25:18 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:28:16 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_game(t_game *game, int argc, char **argv)
 	init_keys(&game->keys);
 	parsing(argc, argv, game);
 	init_player(game);
+	game->mlx_ptr = NULL;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 	{
@@ -36,6 +37,7 @@ static void	init_game(t_game *game, int argc, char **argv)
 	game->height = HEIGHT;
 	game->cam_angle = atan2(game->player.diry, game->player.dirx);
 	game->cam_target = atan2(game->player.dirx, -game->player.diry);
+	// Animation system disabled for performance - commented out
 	game->move_anim.type = ANIM_NONE;
 	game->rot_anim.type = ANIM_NONE;
 }

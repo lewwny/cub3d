@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 09:54:43 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 17:15:00 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:03:36 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,8 @@ static void	draw_wall(t_game *game, int x)
 	y = 0;
 	while (y < HEIGHT)
 	{
-		if (y < ray->wall.start)
-			game->buf[y * WIDTH + x] = game->color.ceiling.r << 16
-				| game->color.ceiling.g << 8 | game->color.ceiling.b;
-		else if (y >= ray->wall.start && y < ray->wall.end)
+		if (y >= ray->wall.start && y < ray->wall.end)
 			draw_wall_textured(game, x, y);
-		else
-			game->buf[y * WIDTH + x] = game->color.floor.r << 16
-				| game->color.floor.g << 8 | game->color.floor.b;
 		y++;
 	}
 }
@@ -83,8 +77,7 @@ void	raycasting(t_game *game)
 		wall_height(game);
 		set_texture(game, raydirx, raydiry);
 		draw_wall(game, x);
-		draw_floor_col(game, x, raydirx, raydiry);
-		draw_ceil_col(game, x, raydirx, raydiry);
+		draw_floor_ceil_col(game, x, raydirx, raydiry);
 		game->z_buffer[x] = game->player.ray.distance;
 		x++;
 	}

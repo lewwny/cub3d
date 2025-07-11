@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:30:00 by lengarci          #+#    #+#             */
-/*   Updated: 2025/07/07 18:49:44 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:48:44 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,40 @@ static void	handle_vertical_rotation(t_game *game)
 		game->player.pitch -= 20;
 }
 
+static void	rotate_left(t_game *game, double rotation_speed)
+{
+	double	old_dirx;
+	double	old_planex;
+
+	old_dirx = game->player.dirx;
+	old_planex = game->player.planex;
+	game->player.dirx = game->player.dirx * cos(-rotation_speed)
+		- game->player.diry * sin(-rotation_speed);
+	game->player.diry = old_dirx * sin(-rotation_speed)
+		+ game->player.diry * cos(-rotation_speed);
+	game->player.planex = game->player.planex * cos(-rotation_speed)
+		- game->player.planey * sin(-rotation_speed);
+	game->player.planey = old_planex * sin(-rotation_speed)
+		+ game->player.planey * cos(-rotation_speed);
+}
+
+static void	rotate_right(t_game *game, double rotation_speed)
+{
+	double	old_dirx;
+	double	old_planex;
+
+	old_dirx = game->player.dirx;
+	old_planex = game->player.planex;
+	game->player.dirx = game->player.dirx * cos(rotation_speed)
+		- game->player.diry * sin(rotation_speed);
+	game->player.diry = old_dirx * sin(rotation_speed)
+		+ game->player.diry * cos(rotation_speed);
+	game->player.planex = game->player.planex * cos(rotation_speed)
+		- game->player.planey * sin(rotation_speed);
+	game->player.planey = old_planex * sin(rotation_speed)
+		+ game->player.planey * cos(rotation_speed);
+}
+
 static void	handle_rotation(t_game *game)
 {
 	double	rotation_speed;
@@ -55,9 +89,9 @@ static void	handle_rotation(t_game *game)
 		return ;
 	rotation_speed = 0.015;
 	if (game->keys.left)
-		schedule_rotation(game, -rotation_speed);
+		rotate_left(game, rotation_speed);
 	if (game->keys.right)
-		schedule_rotation(game, rotation_speed);
+		rotate_right(game, rotation_speed);
 	handle_vertical_rotation(game);
 }
 
@@ -68,7 +102,6 @@ int	game_loop(t_game *game)
 		pause_menu(game);
 		game->keys.esc = 0;
 	}
-	handle_animation(game);
 	handle_movement(game);
 	handle_rotation(game);
 	if (game->menu_mode == 4)

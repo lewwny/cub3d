@@ -6,7 +6,7 @@
 /*   By: macauchy <macauchy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:24:23 by lenygarcia        #+#    #+#             */
-/*   Updated: 2025/07/07 18:38:10 by macauchy         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:18:41 by macauchy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define TEX_WIDTH 64
 
 # define MAX_DIST 17.5
+
+# define COL_BUF 0.1
 
 # define NO_SO 0
 # define WE_EA 1
@@ -67,6 +69,7 @@
 
 # endif
 
+// ANIMATION ENUMS AND STRUCTS - COMMENTED OUT FOR PERFORMANCE
 typedef enum e_anim_type
 {
 	ANIM_NONE,
@@ -288,8 +291,7 @@ void	free_oldmap(char **map, t_gb **garbage);
 void	move_player(t_game *game, int keycode);
 void	extract_texture(t_game *game);
 void	convert_texture(t_game *game);
-void	draw_floor_col(t_game *game, int x, double raydirx, double raydiry);
-void	draw_ceil_col(t_game *game, int x, double raydirx, double raydiry);
+void	draw_floor_ceil_col(t_game *game, int x, double raydirx, double raydiry);
 void	raycasting(t_game *game);
 void	pause_menu(t_game *game);
 void	update_pause_menu(t_game *game, int new_menu_mode);
@@ -298,6 +300,7 @@ void	mouse_show(t_game *game);
 void	mouse_hide(t_game *game);
 void	mouse_move(t_game *game, int x, int y);
 int		rotate_player_by_mouse(t_game *game, int delta_x, int delta_y);
+int		can_move_to(t_game *game, double x, double y);
 
 //TEXTURE COLOR PARSING
 void	no_parse(char *filename, t_parse *parse, t_game *game);
@@ -326,18 +329,7 @@ void	set_texture(t_game *game, double raydirx, double raydiry);
 void	draw_wall_textured(t_game *game, int x, int y);
 void	calculate_y_tex(t_game *game);
 
-//ANIMATION
-double	ease_linear(double t);
-double	ease_in_quad(double t);
-double	ease_out_quad(double t);
-double	ease_in_out_cubic(double t);
-void	handle_animation(t_game *game);
-void	handle_rotation_animation(t_game *game, double elapsed);
-void	apply_final_rotation(t_game *game);
-void	start_rotation_animation(t_game *game, double angle_delta);
-void	extend_rotation_animation(t_game *game, double angle_delta);
-void	schedule_rotation(t_game *game, double angle_delta);
-
+unsigned int	get_fc_text_color(t_game *game, int is_floor);
 unsigned int	apply_shading(unsigned int color, double dist);
 
 #endif
